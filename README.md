@@ -8,6 +8,22 @@ The Tombstones mod has been historically closed source. The original author (Cor
 
 ![](https://i.imgur.com/m7Sqbpj.png)
 
+## Maven
+
+You can find the Tombstone mod on the [MMD Maven](https://maven.mcmoddev.com/).
+
+```groovy
+repositories {
+    maven {
+        url 'http://maven.mcmoddev.com'
+    }
+}
+
+dependencies {
+    compile fg.deobf("ovh.corail:tombstone:modversion")
+}
+```
+
 ## Credits
 
 - Corail31 - Author of the mod
