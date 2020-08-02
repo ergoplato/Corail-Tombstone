@@ -11,6 +11,12 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 
+apply from: 'https://raw.githubusercontent.com/MinecraftModDevelopment/Gradle-Collection/master/generic/secrets.gradle'
+
+if (project.hasProperty('secretFile')) {
+    loadSecrets(new File((String) findProperty('secretFile')))
+}
+
 version = '4.5.' + getBuildNumber();
 group = 'ovh.corail'
 archivesBaseName = 'tombstone'
@@ -153,5 +159,44 @@ task updateVersionTracker {
         // We need to attempt a read in order to actually send the message.
         println "VersionCheck Status code: ${req.getResponseCode()}"
         println "VersionCheck Response: ${req.getInputStream().getText()}"
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.archivesBaseName
+            version project.version
+            from components.java
+
+            // Allows the maven pom file to be modified.
+            pom.withXml {
+                // Go through all the dependencies.
+                asNode().dependencies.dependency.each { dep ->    
+
+                    // Check if the dependency has been mapped with MCP
+                    if (dep.version.last().value().last().contains('_mapped_snapshot_') || dep.version.last().value().last().contains('_mapped_stable_')) {    
+
+                        // Remove the MCP mapped artifact from the dependency list.
+                        println 'Surpressing MCP mapped artifact ' + dep.artifactId.last().value().last() + ' from maven dependencies.'
+                        assert dep.parent().remove(dep)
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            // Sets the login credentials for your maven.
+            credentials {
+                username findProperty('userMaven')
+                password findProperty('authMaven')
+            }
+
+            // Sets the maven URL
+            url findProperty('urlMaven')
+        }
     }
 }
