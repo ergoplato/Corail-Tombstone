@@ -1,6 +1,10 @@
 package ovh.corail.tombstone;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.common.reflect.Reflection;
+
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.enchantment.EnchantmentType;
@@ -20,8 +24,6 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import ovh.corail.tombstone.api.TombstoneAPIProps;
 import ovh.corail.tombstone.api.capability.ITBCapability;
 import ovh.corail.tombstone.api.magic.ISoulConsumer;
@@ -103,7 +105,6 @@ public class ModTombstone {
         } else if (SupportMods.CORPSE.isLoaded()) {
             throw new RuntimeException(MOD_NAME + " Exception : you loaded an incompatible grave mod : Corpse");
         }
-        Helper.loadContributors(event.getServer());
         if (SupportMods.COSMETIC_ARMOR.isLoaded()) {
             MinecraftForge.EVENT_BUS.register(CompatibilityCosmeticArmor.instance);
         }

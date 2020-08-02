@@ -1,12 +1,33 @@
 package ovh.corail.tombstone.helper;
 
+import static ovh.corail.tombstone.ModTombstone.MOD_ID;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Random;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.IntStream;
+
+import javax.annotation.Nullable;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.opengl.GL11;
+
 import com.google.common.collect.Sets;
-import com.google.common.util.concurrent.FutureCallback;
-import com.google.common.util.concurrent.Futures;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.brigadier.CommandDispatcher;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -70,10 +91,6 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.network.NetworkEvent;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.apache.commons.lang3.tuple.Pair;
-import org.lwjgl.opengl.GL11;
 import ovh.corail.tombstone.api.capability.Perk;
 import ovh.corail.tombstone.api.magic.ISoulConsumer;
 import ovh.corail.tombstone.command.CommandTBAcceptTeleport;
@@ -95,26 +112,6 @@ import ovh.corail.tombstone.config.ConfigTombstone;
 import ovh.corail.tombstone.config.SharedConfigTombstone;
 import ovh.corail.tombstone.registry.ModEnchantments;
 import ovh.corail.tombstone.registry.ModTriggers;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.LocalDate;
-import java.time.temporal.ChronoField;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.IntStream;
-
-import static ovh.corail.tombstone.ModTombstone.LOGGER;
-import static ovh.corail.tombstone.ModTombstone.MOD_ID;
 
 @SuppressWarnings({ "WeakerAccess", "unused" })
 public class Helper {
@@ -694,37 +691,6 @@ public class Helper {
                 EntityHelper.addKnowledge((ServerPlayerEntity) entity, params.getInt("amount", 1));
             }
         }).build();
-    }
-
-    private static final URL CONTRIBUTORS_URL;
-
-    static {
-        try {
-            CONTRIBUTORS_URL = new URL("https://raw.githubusercontent.com/Corail31/trash/master/contributors.json");
-        } catch (MalformedURLException e) {
-            throw new IllegalStateException(e);
-        }
-    }
-
-    @SuppressWarnings("UnstableApiUsage")
-    public static void loadContributors(MinecraftServer server) {
-        if (CONTRIBUTORS.isEmpty()) {
-            Futures.addCallback(ContributorStore.read(CONTRIBUTORS_URL, server.serverProxy), new FutureCallback<ContributorStore>() {
-                @Override
-                public void onSuccess(@Nullable ContributorStore result) {
-                    CONTRIBUTORS = result;
-                    LOGGER.info("The list of contributors has been loaded successfully");
-                }
-
-                @Override
-                public void onFailure(@Nonnull Throwable t) {
-                    LOGGER.info("The list of contributors couldn't be loaded");
-                    //t.printStackTrace();
-                }
-            }, server);
-        } else {
-            LOGGER.info("The list of contributors was already loaded");
-        }
     }
 
     public static void initCommands(CommandDispatcher<CommandSource> commandDispatcher) {
