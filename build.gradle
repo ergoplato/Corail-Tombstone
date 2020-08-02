@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 
-version = '4.5.1'
+version = '4.5.' + getBuildNumber();
 group = 'ovh.corail'
 archivesBaseName = 'tombstone'
 
@@ -116,6 +116,11 @@ task apiJar(type: Jar) {
 }*/
 
 tasks.build.dependsOn apiJar//, reobfApiJar
+
+String getBuildNumber() {
+
+    return System.getenv('BUILD_NUMBER') ? System.getenv('BUILD_NUMBER') : System.getenv('TRAVIS_BUILD_NUMBER') ? System.getenv('TRAVIS_BUILD_NUMBER') : '0';
+}
 
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
