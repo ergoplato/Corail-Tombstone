@@ -141,7 +141,7 @@ task updateVersionTracker {
     
     doLast {
         def body = [
-            'author': "darkhax",
+            'author': "Darkhax",
             'projectName': "tombstone",
             'gameVersion': "1.15.2",
             'projectVersion': "${version}",
