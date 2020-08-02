@@ -10,6 +10,7 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
 apply from: 'https://raw.githubusercontent.com/MinecraftModDevelopment/Gradle-Collection/master/generic/secrets.gradle'
 
