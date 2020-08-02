@@ -1,0 +1,37 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:soul_receptacle"
+    },
+    "title": {
+      "translate": "tombstone.advancement.death_master.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.death_master.desc"
+    },
+    "frame": "goal",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/enchant_voodoo_poppet",
+  "criteria": {
+    "has_prevent_suffocation": {
+      "trigger": "tombstone:prevent_death_suffocation"
+    },
+    "has_prevent_burn": {
+      "trigger": "tombstone:prevent_death_burn"
+    },
+    "prevent_death_lightning": {
+      "trigger": "tombstone:prevent_death_lightning"
+    },
+    "has_prevent_fall": {
+      "trigger": "tombstone:prevent_death_fall"
+    },
+    "has_prevent_degeneration": {
+      "trigger": "tombstone:prevent_death_degeneration"
+    }
+  },
+  "rewards": {
+    "loot": ["tombstone:soul_receptacle"],
+    "function": "tombstone:knowledge//amount/10"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "type": "tombstone:disableable_shapeless",
+  "ingredients": [{"item": "tombstone:strange_scroll"}, {"item": "lapis_lazuli"}],
+  "result": {"item": "tombstone:scroll_of_purification"}
+}

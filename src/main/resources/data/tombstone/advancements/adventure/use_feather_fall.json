@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:scroll_of_feather_fall"
+    },
+    "title": {
+      "translate": "tombstone.advancement.use_feather_fall.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.use_feather_fall.desc"
+    },
+    "frame": "goal",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/create_magic_scroll",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:use_feather_fall"
+    }
+  },
+  "requirements": [
+    ["coded_trigger"]
+  ],
+  "rewards": {
+    "function": "tombstone:knowledge//amount/3"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "type": "crafting_shaped",
+  "pattern": ["010", "121", "010"],
+  "key": {"0": {"item": "tombstone:grave_dust"}, "1": {"item": "stick"}, "2": {"item": "gold_ingot"}},
+  "result": {"item": "tombstone:ankh_of_pray"}
+}

@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:lollipop_0"
+    },
+    "title": {
+      "translate": "tombstone.advancement.eat_lollipop.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.eat_lollipop.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "tombstone:adventure/root",
+  "criteria": {
+    "eat_lollypop": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "tag": "tombstone:lollipops"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "tombstone:knowledge//amount/1"
+  }
+}

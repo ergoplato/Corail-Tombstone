@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:voodoo_poppet",
+      "nbt": "{enchant:true}"
+    },
+    "title": {
+      "translate": "tombstone.advancement.enchant_voodoo_poppet.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.enchant_voodoo_poppet.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/create_voodoo_poppet",
+  "criteria": {
+    "has_enchanted_voodoo_poppet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tombstone:voodoo_poppet",
+            "nbt": "{enchant:true}"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "function": "tombstone:knowledge//amount/3"
+  }
+}

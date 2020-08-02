@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tombstone:tablet_of_recall",
+    "tombstone:tablet_of_assistance",
+    "tombstone:tablet_of_home",
+	"tombstone:tablet_of_cupidity"
+  ]
+}

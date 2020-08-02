@@ -1,0 +1,14 @@
+{
+  "parent": "tombstone:item/strange_tablet",
+  "textures": {
+    "layer1": "tombstone:item/recall"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "ancient": 1
+      },
+      "model": "tombstone:item/ancient_tablet_of_recall"
+    }
+  ]
+}

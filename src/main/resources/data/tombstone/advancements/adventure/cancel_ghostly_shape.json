@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:advancement_1"
+    },
+    "title": {
+      "translate": "tombstone.advancement.cancel_ghostly_shape.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.cancel_ghostly_shape.desc"
+    },
+    "frame": "goal",
+    "hidden": true,
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/first_grave",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:cancel_ghostly_shape"
+    }
+  },
+  "rewards": {
+    "loot": ["tombstone:grave_dust"],
+    "function": "tombstone:knowledge//amount/3"
+  }
+}

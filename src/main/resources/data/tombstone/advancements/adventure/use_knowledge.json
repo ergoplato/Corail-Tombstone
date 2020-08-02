@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:scroll_of_knowledge"
+    },
+    "title": {
+      "translate": "tombstone.advancement.use_knowledge.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.use_knowledge.desc"
+    },
+    "frame": "goal",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/create_magic_scroll",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:use_knowledge"
+    }
+  },
+  "requirements": [
+    ["coded_trigger"]
+  ],
+  "rewards": {
+    "function": "tombstone:knowledge//amount/3"
+  }
+}

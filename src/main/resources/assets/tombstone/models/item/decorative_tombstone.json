@@ -1,0 +1,21 @@
+{
+  "parent": "tombstone:block/black_tombstone",
+  "overrides": [
+    {
+      "predicate": {
+        "model_texture": 0.01
+      },
+      "model": "tombstone:block/white_tombstone"
+    },{
+      "predicate": {
+        "model_texture": 0.10
+      },
+      "model": "tombstone:block/black_plate_tombstone"
+    },{
+      "predicate": {
+        "model_texture": 0.11
+      },
+      "model": "tombstone:block/white_plate_tombstone"
+    }
+  ]
+}

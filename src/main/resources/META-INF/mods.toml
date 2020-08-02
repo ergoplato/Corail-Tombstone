@@ -1,0 +1,37 @@
+modLoader="javafml" #mandatory
+loaderVersion="[31,)" #mandatory
+issueTrackerURL="https://github.com/Corail31/tombstone_lite/issues/" #optional
+[[mods]] #mandatory
+modId="tombstone" #mandatory
+version="${file.jarVersion}" #mandatory
+displayName="Corail Tombstone" #mandatory
+updateJSONURL="https://raw.githubusercontent.com/Corail31/tombstone_lite/master/update.json" #optional
+displayURL="https://www.curseforge.com/minecraft/mc-mods/corail-tombstone/" #optional
+#logoFile="logo.png" #optional
+credits="Special thanks to Gegy1000, Barteks2X and Paul Fulham" #optional
+authors="Corail31" #optional
+description='''
+Corail Tombstone keeps you from losing your belongings on death, with many features of survivability and dimensional teleportation, in a medieval fantasy atmosphere related to the grave's souls.
+'''
+[[dependencies.tombstone]]
+    modId="forge"
+    mandatory=true
+    versionRange="[31.2.0,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.tombstone]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15.2,1.16)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.tombstone]]
+    modId="quark"
+    mandatory=false
+    ordering="BEFORE"
+    side="BOTH"
+[[dependencies.tombstone]]
+    modId="strange"
+    mandatory=false
+    ordering="BEFORE"
+    side="BOTH"

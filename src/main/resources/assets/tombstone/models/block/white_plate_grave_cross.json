@@ -1,0 +1,9 @@
+{
+  "parent": "tombstone:block/plate_grave_cross",
+  "textures": {
+    "0": "tombstone:block/white_tombstone",
+    "particle": "tombstone:block/white_tombstone",
+    "ground": "block/podzol_top",
+	"grave_plate": "tombstone:block/grave_plate"
+  }
+}

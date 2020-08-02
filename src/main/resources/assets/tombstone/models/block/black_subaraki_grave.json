@@ -1,0 +1,7 @@
+{
+  "parent": "tombstone:block/subaraki_grave",
+	"textures": {
+		"0": "tombstone:block/tombstone",
+		"particle": "tombstone:block/tombstone"
+	}
+}

@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:decorative_grave_cross"
+    },
+    "title": {
+      "translate": "tombstone.advancement.choose_grave_type.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.choose_grave_type.desc"
+    },
+    "frame": "goal",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/root",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:choose_grave_type"
+    }
+  },
+  "rewards": {
+    "loot": ["tombstone:random_skull"]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "tombstone:item/strange_tablet",
+  "textures": {
+    "layer1": "tombstone:item/cupidity"
+  }
+}

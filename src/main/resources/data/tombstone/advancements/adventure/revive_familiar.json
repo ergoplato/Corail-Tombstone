@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:advancement_7",
+      "nbt": "{enchant:true}"
+    },
+    "title": {
+      "translate": "tombstone.advancement.revive_familiar.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.revive_familiar.desc"
+    },
+    "frame": "goal",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/capture_soul",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:revive_familiar"
+    }
+  },
+  "requirements": [
+    ["coded_trigger"]
+  ],
+  "rewards": {
+    "function": "tombstone:knowledge//amount/10"
+  }
+}

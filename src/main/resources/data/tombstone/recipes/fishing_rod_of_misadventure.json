@@ -1,0 +1,6 @@
+{
+  "type": "crafting_shaped",
+  "pattern": ["  0", " 01", "0 1"],
+  "key": {"0": {"item": "dead_bush"}, "1": {"item": "tombstone:grave_dust"}},
+  "result": {"item": "tombstone:fishing_rod_of_misadventure"}
+}

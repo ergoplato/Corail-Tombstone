@@ -1,0 +1,6 @@
+{
+  "type": "crafting_shaped",
+  "pattern": ["101", "202", "101"],
+  "key": {"0": {"item": "paper"}, "1": {"item": "stick"}, "2": {"item": "tombstone:grave_dust"}},
+  "result": {"item": "tombstone:strange_scroll"}
+}

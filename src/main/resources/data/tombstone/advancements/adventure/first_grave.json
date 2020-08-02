@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:decorative_grave_normal"
+    },
+    "title": {
+      "translate": "tombstone.advancement.first_grave.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.first_grave.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "tombstone:adventure/root",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:first_grave"
+    }
+  }
+}

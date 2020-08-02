@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:advancement_3"
+    },
+    "title": {
+      "translate": "tombstone.advancement.choose_knowledge.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.choose_knowledge.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/first_knowledge",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:choose_knowledge"
+    }
+  }
+}

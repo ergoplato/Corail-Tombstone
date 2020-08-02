@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:grave_dust"
+    },
+    "title": {
+      "translate": "tombstone.advancement.find_grave_dust.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.find_grave_dust.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "tombstone:adventure/root",
+  "criteria": {
+    "has_grave_dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tombstone:grave_dust"
+          }
+        ]
+      }
+    }
+  }
+}

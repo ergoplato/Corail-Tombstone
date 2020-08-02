@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:advancement_3",
+      "nbt": "{enchant:true}"
+    },
+    "title": {
+      "translate": "tombstone.advancement.first_pray.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.first_pray.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/first_knowledge",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:first_pray"
+    }
+  }
+}

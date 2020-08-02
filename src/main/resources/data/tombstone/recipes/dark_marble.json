@@ -1,0 +1,5 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [{"item": "tombstone:grave_dust"}, {"item": "minecraft:stone"}],
+  "result": {"item": "tombstone:dark_marble"}
+}

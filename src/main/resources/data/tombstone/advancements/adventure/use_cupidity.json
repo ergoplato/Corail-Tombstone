@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:tablet_of_cupidity"
+    },
+    "title": {
+      "translate": "tombstone.advancement.use_cupidity.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.use_cupidity.desc"
+    },
+    "frame": "goal",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/create_magic_tablet",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:use_cupidity"
+    }
+  },
+  "requirements": [
+    ["coded_trigger"]
+  ],
+  "rewards": {
+    "function": "tombstone:knowledge//amount/3"
+  }
+}

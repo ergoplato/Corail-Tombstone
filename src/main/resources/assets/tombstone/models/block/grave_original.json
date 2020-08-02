@@ -1,0 +1,171 @@
+{
+	"credit": "Corail Tombstone : Original Grave",
+	"parent": "block/block",
+	"elements": [
+		{
+			"name": "Socle01",
+			"from": [0, 0, 0],
+			"to": [16, 1, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 1], "texture": "#ground"},
+				"east": {"uv": [0, 0, 16, 1], "texture": "#ground"},
+				"south": {"uv": [0, 0, 16, 1], "texture": "#ground"},
+				"west": {"uv": [0, 0, 16, 1], "texture": "#ground"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#ground"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#ground"}
+			}
+		},
+		{
+			"name": "Socle02",
+			"from": [2.5, 1, 0],
+			"to": [13.5, 1.5, 16],
+			"faces": {
+				"north": {"uv": [1, 5, 12, 5.5], "texture": "#0"},
+				"east": {"uv": [0, 5, 16, 5.5], "texture": "#0"},
+				"south": {"uv": [1, 5, 12, 5.5], "texture": "#0"},
+				"west": {"uv": [0, 5, 16, 5.5], "texture": "#0"},
+				"up": {"uv": [2, 1, 14, 16], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Container",
+			"from": [4.5, 1.5, 0.5],
+			"to": [11.5, 7, 15.5],
+			"faces": {
+				"north": {"uv": [2, 6, 9, 11.5], "texture": "#0"},
+				"east": {"uv": [1, 6, 16, 11.5], "texture": "#0"},
+				"south": {"uv": [2, 6, 9, 11.5], "texture": "#0"},
+				"west": {"uv": [1, 6, 16, 11.5], "texture": "#0"},
+				"up": {"uv": [2, 1, 9, 15], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Couvercle01",
+			"from": [4, 7, 0],
+			"to": [12, 7.25, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 8, 0.25], "texture": "#0"},
+				"east": {"uv": [0, 0, 16, 0.25], "texture": "#0"},
+				"south": {"uv": [0, 0, 8, 0.25], "texture": "#0"},
+				"west": {"uv": [0, 0, 16, 0.25], "texture": "#0"},
+				"up": {"uv": [0, 0, 8, 16], "texture": "#0"},
+				"down": {"uv": [0, 0, 8, 16], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Couvercle02",
+			"from": [4.5, 7.25, 0.5],
+			"to": [11.5, 7.5, 15.5],
+			"faces": {
+				"north": {"uv": [6, 2, 13, 2.25], "texture": "#0"},
+				"east": {"uv": [1, 2, 15, 2.25], "texture": "#0"},
+				"south": {"uv": [6, 2, 13, 2.25], "texture": "#0"},
+				"west": {"uv": [1, 2, 15, 2.25], "texture": "#0"},
+				"up": {"uv": [0.5, 0.5, 7.5, 15.5], "texture": "#0"},
+				"down": {"uv": [0.5, 0.5, 7.5, 15.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "CrossSocle01",
+			"from": [6.5, 7.5, 11.5],
+			"to": [9.5, 8, 14.5],
+			"faces": {
+				"north": {"uv": [4, 3, 7, 3.5], "texture": "#0"},
+				"east": {"uv": [4, 3, 7, 3.5], "texture": "#0"},
+				"south": {"uv": [4, 3, 7, 3.5], "texture": "#0"},
+				"west": {"uv": [4, 3, 7, 3.5], "texture": "#0"},
+				"up": {"uv": [4, 3, 7, 6], "texture": "#0"}
+			}
+		},
+		{
+			"name": "CrossSocle02",
+			"from": [7.25, 8, 12.25],
+			"to": [8.75, 10, 13.75],
+			"faces": {
+				"north": {"uv": [4, 5, 5.5, 7], "texture": "#0"},
+				"east": {"uv": [4, 5, 5.5, 7], "texture": "#0"},
+				"south": {"uv": [4, 5, 5.5, 7], "texture": "#0"},
+				"west": {"uv": [4, 5, 5.5, 7], "texture": "#0"},
+				"up": {"uv": [4, 5, 5.5, 6.5], "texture": "#0"}
+			}
+		},
+		{
+			"name": "CrossVerticalBar",
+			"from": [7.75, 10, 12.75],
+			"to": [8.25, 12, 13.25],
+			"faces": {
+				"north": {"uv": [2, 5, 2.5, 7], "texture": "#cross"},
+				"east": {"uv": [2, 5, 2.5, 7], "texture": "#cross"},
+				"south": {"uv": [2, 5, 2.5, 7], "texture": "#cross"},
+				"west": {"uv": [2, 5, 2.5, 7], "texture": "#cross"},
+				"up": {"uv": [2, 5, 2.5, 5.5], "texture": "#cross"},
+				"down": {"uv": [2, 5, 2.5, 5.5], "texture": "#cross"}
+			}
+		},
+		{
+			"name": "CrossPartDown",
+			"from": [7.25, 12, 12.75],
+			"to": [8.75, 12.5, 13.25],
+			"faces": {
+				"north": {"uv": [3, 5, 4.5, 5.5], "texture": "#cross"},
+				"east": {"uv": [3, 5, 3.5, 5.5], "texture": "#cross"},
+				"south": {"uv": [3, 5, 4.5, 5.5], "texture": "#cross"},
+				"west": {"uv": [3, 5, 3.5, 5.5], "texture": "#cross"},
+				"up": {"uv": [3, 5, 3.5, 6.5], "texture": "#cross"},
+				"down": {"uv": [3, 5, 3.5, 6.5], "texture": "#cross"}
+			}
+		},
+		{
+			"name": "CrossPartUp",
+			"from": [7.25, 13, 12.75],
+			"to": [8.75, 13.5, 13.25],
+			"faces": {
+				"north": {"uv": [0.9, 5.3, 2.4, 5.8], "texture": "#cross"},
+				"east": {"uv": [0.9, 5.3, 1.4, 5.8], "texture": "#cross"},
+				"south": {"uv": [0.9, 5.3, 2.4, 5.8], "texture": "#cross"},
+				"west": {"uv": [0.9, 5.3, 1.4, 5.8], "texture": "#cross"},
+				"up": {"uv": [0.9, 5.3, 1.4, 6.8], "texture": "#cross"},
+				"down": {"uv": [0.9, 5.3, 1.4, 6.8], "texture": "#cross"}
+			}
+		},
+		{
+			"name": "CrossPartWest",
+			"from": [6.75, 12.5, 12.75],
+			"to": [7.75, 13, 13.25],
+			"faces": {
+				"north": {"uv": [6, 7, 7, 7.5], "texture": "#cross"},
+				"east": {"uv": [6, 7, 6.5, 7.5], "texture": "#cross"},
+				"south": {"uv": [6, 7, 7, 7.5], "texture": "#cross"},
+				"west": {"uv": [6, 7, 6.5, 7.5], "texture": "#cross"},
+				"up": {"uv": [6, 7, 6.5, 8], "texture": "#cross"},
+				"down": {"uv": [6, 7, 6.5, 8], "texture": "#cross"}
+			}
+		},
+		{
+			"name": "CrossPartEast",
+			"from": [8.25, 12.5, 12.75],
+			"to": [9.25, 13, 13.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 10, 7]},
+			"faces": {
+				"north": {"uv": [4, 10, 5, 10.5], "texture": "#cross"},
+				"east": {"uv": [4, 10, 4.5, 10.5], "texture": "#cross"},
+				"south": {"uv": [4, 10, 5, 10.5], "texture": "#cross"},
+				"west": {"uv": [4, 10, 4.5, 10.5], "texture": "#cross"},
+				"up": {"uv": [4, 10, 4.5, 11], "texture": "#cross"},
+				"down": {"uv": [4, 10, 4.5, 11], "texture": "#cross"}
+			}
+		},
+		{
+			"name": "CrossTop",
+			"from": [7.75, 13.5, 12.75],
+			"to": [8.25, 14, 13.25],
+			"faces": {
+				"north": {"uv": [5, 6, 5.5, 6.5], "texture": "#cross"},
+				"east": {"uv": [5, 6, 5.5, 6.5], "texture": "#cross"},
+				"south": {"uv": [5, 6, 5.5, 6.5], "texture": "#cross"},
+				"west": {"uv": [5, 6, 5.5, 6.5], "texture": "#cross"},
+				"up": {"uv": [5, 6, 5.5, 6.5], "texture": "#cross"}
+			}
+		}
+	]
+}

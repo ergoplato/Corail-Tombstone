@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:advancement_5",
+      "nbt": "{enchant:true}"
+    },
+    "title": {
+      "translate": "tombstone.advancement.activate_magic_item.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.activate_magic_item.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/create_decorative_grave",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:activate_magic_item"
+    }
+  }
+}

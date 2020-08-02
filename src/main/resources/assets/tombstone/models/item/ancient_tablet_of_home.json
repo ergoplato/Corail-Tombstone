@@ -1,0 +1,7 @@
+{
+  "parent": "tombstone:item/tablet_of_home",
+  "textures": {
+    "layer1": "tombstone:item/home",
+    "layer2": "tombstone:item/ancient"
+  }
+}

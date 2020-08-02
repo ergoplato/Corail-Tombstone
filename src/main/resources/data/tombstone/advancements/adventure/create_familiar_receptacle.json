@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:familiar_receptacle"
+    },
+    "title": {
+      "translate": "tombstone.advancement.create_familiar_receptacle.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.create_familiar_receptacle.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/mastery_1",
+  "criteria": {
+    "has_decorative_grave": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tombstone:familiar_receptacle"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "function": "tombstone:knowledge//amount/5"
+  }
+}

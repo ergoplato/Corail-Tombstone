@@ -1,0 +1,53 @@
+{
+  "__comment": "Normal Grave",
+  "parent": "block/block",
+  "elements": [
+    {
+      "name": "ground",
+      "from": [0, 0, 0], "to": [16, 1, 16], "faces": {
+      "down": {"uv": [0, 0, 16, 16], "texture": "#ground", "cullface": "down"},
+      "up": {"uv": [0, 0, 16, 16], "texture": "#ground"},
+      "north": {"uv": [0, 0, 16, 1], "texture": "#ground"},
+      "south": {"uv": [0, 0, 16, 1], "texture": "#ground"},
+      "west": {"uv": [0, 0, 16, 1], "texture": "#ground"},
+      "east": {"uv": [0, 0, 16, 1], "texture": "#ground"}
+    }
+    }, {
+      "name": "grave_down",
+      "from": [3, 1, 0], "to": [13, 4, 16], "faces": {
+        "up": {"uv": [3, 0, 13, 16], "texture": "#0"},
+        "north": {"uv": [3, 1, 13, 4], "texture": "#0"},
+        "south": {"uv": [3, 1, 13, 4], "texture": "#0"},
+        "west": {"uv": [0, 1, 16, 4], "texture": "#0"},
+        "east": {"uv": [0, 1, 16, 4], "texture": "#0"}
+      }
+    }, {
+      "name": "grave_top",
+      "from": [4, 4, 1], "to": [12, 5, 14], "faces": {
+        "up": {"uv": [4, 1, 12, 14], "texture": "#0"},
+        "north": {"uv": [4, 4, 12, 5], "texture": "#0"},
+        "south": {"uv": [4, 4, 12, 5], "texture": "#0"},
+        "west": {"uv": [4, 4, 12, 5], "texture": "#0"},
+        "east": {"uv": [4, 4, 12, 5], "texture": "#0"}
+      }
+    }, {
+      "name": "grave_side_down",
+      "from": [3, 4, 14], "to": [13, 13, 16], "faces": {
+        "up": {"uv": [4, 14, 12, 16], "texture": "#0"},
+        "north": {"uv": [3, 4, 13, 13], "texture": "#0"},
+        "south": {"uv": [3, 4, 13, 13], "texture": "#0"},
+        "west": {"uv": [14, 4, 16, 13], "texture": "#0"},
+        "east": {"uv": [14, 4, 16, 13], "texture": "#0"}
+      }
+    }, {
+      "name": "grave_side_top",
+      "from": [4, 13, 14], "to": [12, 14, 16], "faces": {
+        "up": {"uv": [4, 14, 12, 16], "texture": "#0"},
+        "north": {"uv": [4, 13, 12, 14], "texture": "#0"},
+        "south": {"uv": [4, 13, 12, 14], "texture": "#0"},
+        "west": {"uv": [14, 13, 16, 14], "texture": "#0"},
+        "east": {"uv": [14, 13, 16, 14], "texture": "#0"}
+      }
+    }
+  ]
+}

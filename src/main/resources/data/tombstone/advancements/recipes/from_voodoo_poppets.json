@@ -1,0 +1,18 @@
+{
+	"parent": "tombstone:recipes/root",
+	"rewards": {
+		"recipes": [
+			"tombstone:voodoo_poppet_protection"
+		]
+	},
+	"criteria": {
+		"has_ingredient": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [{
+					"item": "tombstone:voodoo_poppet"
+				}]
+			}
+		}
+	}
+}

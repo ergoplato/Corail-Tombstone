@@ -1,0 +1,6 @@
+{
+  "parent": "tombstone:item/strange_scroll",
+  "textures": {
+    "layer1": "tombstone:item/reach"
+  }
+}

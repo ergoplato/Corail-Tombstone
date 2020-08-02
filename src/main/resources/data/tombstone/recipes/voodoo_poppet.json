@@ -1,0 +1,9 @@
+{
+  "type": "tombstone:disableable_shaped",
+  "pattern": ["010", "234", "010"],
+  "key": {
+    "0": {"item": "tombstone:grave_dust"}, "1": {"item": "clay_ball"}, "2": {"item": "minecraft:leather"},
+    "3": {"item": "dead_bush"}, "4": {"item": "string"}
+  },
+  "result": {"item": "tombstone:voodoo_poppet"}
+}

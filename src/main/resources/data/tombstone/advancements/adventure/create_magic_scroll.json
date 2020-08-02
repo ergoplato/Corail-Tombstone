@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:strange_scroll",
+      "nbt": "{enchant:true}"
+    },
+    "title": {
+      "translate": "tombstone.advancement.create_magic_scroll.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.create_magic_scroll.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/create_strange_scroll",
+  "criteria": {
+    "has_magic_scroll": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "tombstone:magic_scrolls"
+          }
+        ]
+      }
+    }
+  }
+}

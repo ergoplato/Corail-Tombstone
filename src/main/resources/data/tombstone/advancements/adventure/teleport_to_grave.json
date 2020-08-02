@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:advancement_2"
+    },
+    "title": {
+      "translate": "tombstone.advancement.teleport_to_grave.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.teleport_to_grave.desc"
+    },
+    "frame": "goal",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/enchant_grave_key",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:teleport_to_grave"
+    }
+  },
+  "rewards": {
+    "function": "tombstone:knowledge//amount/3"
+  }
+}

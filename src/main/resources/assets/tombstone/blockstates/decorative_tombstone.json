@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "facing=north,is_engraved=false,model_texture=0": {"model": "tombstone:block/black_tombstone"},
+    "facing=east,is_engraved=false,model_texture=0": {"model": "tombstone:block/black_tombstone", "y": 90},
+    "facing=south,is_engraved=false,model_texture=0": {"model": "tombstone:block/black_tombstone", "y": 180},
+    "facing=west,is_engraved=false,model_texture=0": {"model": "tombstone:block/black_tombstone", "y": 270},
+    "facing=north,is_engraved=true,model_texture=0": {"model": "tombstone:block/black_plate_tombstone"},
+    "facing=east,is_engraved=true,model_texture=0": {"model": "tombstone:block/black_plate_tombstone", "y": 90},
+    "facing=south,is_engraved=true,model_texture=0": {"model": "tombstone:block/black_plate_tombstone", "y": 180},
+    "facing=west,is_engraved=true,model_texture=0": {"model": "tombstone:block/black_plate_tombstone", "y": 270},
+	
+	"facing=north,is_engraved=false,model_texture=1": {"model": "tombstone:block/white_tombstone"},
+    "facing=east,is_engraved=false,model_texture=1": {"model": "tombstone:block/white_tombstone", "y": 90},
+    "facing=south,is_engraved=false,model_texture=1": {"model": "tombstone:block/white_tombstone", "y": 180},
+    "facing=west,is_engraved=false,model_texture=1": {"model": "tombstone:block/white_tombstone", "y": 270},
+    "facing=north,is_engraved=true,model_texture=1": {"model": "tombstone:block/white_plate_tombstone"},
+    "facing=east,is_engraved=true,model_texture=1": {"model": "tombstone:block/white_plate_tombstone", "y": 90},
+    "facing=south,is_engraved=true,model_texture=1": {"model": "tombstone:block/white_plate_tombstone", "y": 180},
+    "facing=west,is_engraved=true,model_texture=1": {"model": "tombstone:block/white_plate_tombstone", "y": 270}
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:strange_tablet",
+      "nbt": "{enchant:true}"
+    },
+    "title": {
+      "translate": "tombstone.advancement.create_magic_tablet.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.create_magic_tablet.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/create_strange_tablet",
+  "criteria": {
+    "has_magic_tablet": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "tombstone:magic_tablets"
+          }
+        ]
+      }
+    }
+  }
+}

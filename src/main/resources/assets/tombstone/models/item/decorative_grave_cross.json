@@ -1,0 +1,21 @@
+{
+  "parent": "tombstone:block/black_grave_cross",
+  "overrides": [
+    {
+      "predicate": {
+        "model_texture": 0.01
+      },
+      "model": "tombstone:block/white_grave_cross"
+    },{
+      "predicate": {
+        "model_texture": 0.10
+      },
+      "model": "tombstone:block/black_plate_grave_cross"
+    },{
+      "predicate": {
+        "model_texture": 0.11
+      },
+      "model": "tombstone:block/white_plate_grave_cross"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "tombstone:item/tablet_of_recall",
+  "textures": {
+    "layer1": "tombstone:item/recall",
+    "layer2": "tombstone:item/ancient"
+  }
+}

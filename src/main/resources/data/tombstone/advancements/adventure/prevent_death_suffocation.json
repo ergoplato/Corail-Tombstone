@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:lily_pad"
+    },
+    "title": {
+      "translate": "tombstone.advancement.prevent_death_suffocation.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.prevent_death_suffocation.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/enchant_voodoo_poppet",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:prevent_death_suffocation"
+    }
+  },
+  "rewards": {
+    "function": "tombstone:knowledge//amount/5"
+  }
+}

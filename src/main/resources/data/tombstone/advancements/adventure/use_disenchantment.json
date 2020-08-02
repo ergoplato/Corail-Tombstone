@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:book_of_disenchantment"
+    },
+    "title": {
+      "translate": "tombstone.advancement.use_disenchantment.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.use_disenchantment.desc"
+    },
+    "frame": "goal",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/create_decorative_grave",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:use_disenchantment"
+    }
+  },
+  "requirements": [
+    ["coded_trigger"]
+  ],
+  "rewards": {
+    "function": "tombstone:knowledge//amount/3"
+  }
+}

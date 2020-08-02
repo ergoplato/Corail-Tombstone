@@ -1,0 +1,48 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:tablet_of_recall",
+	  "nbt": "{ancient:true}"
+    },
+    "title": {
+      "translate": "tombstone.advancement.find_ancient_tablet.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.find_ancient_tablet.desc"
+    },
+    "frame": "goal",
+	"hidden": true,
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/create_fishing_rod",
+  "criteria": {
+    "has_ancient_tablet_of_recall": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tombstone:tablet_of_recall",
+			"nbt": "{ancient:true}"
+          }
+        ]
+      }
+    },
+	"has_ancient_tablet_of_home": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tombstone:tablet_of_home",
+			"nbt": "{ancient:true}"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    ["has_ancient_tablet_of_recall", "has_ancient_tablet_of_home"]
+  ],
+  "rewards": {
+    "function": "tombstone:knowledge//amount/10"
+  }
+}

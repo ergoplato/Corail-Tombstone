@@ -1,0 +1,22 @@
+{
+	"parent": "tombstone:recipes/root",
+	"rewards": {
+		"recipes": [
+			"tombstone:black_grave_simple",
+			"tombstone:black_grave_normal",
+			"tombstone:black_grave_cross",
+			"tombstone:black_tombstone",
+			"tombstone:black_subaraki_grave"
+		]
+	},
+	"criteria": {
+		"has_ingredient": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [{
+					"item": "tombstone:dark_marble"
+				}]
+			}
+		}
+	}
+}

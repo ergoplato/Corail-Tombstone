@@ -1,0 +1,6 @@
+{
+  "type": "crafting_shaped",
+  "pattern": ["000", "010", "000"],
+  "key": {"0": {"item": "tombstone:grave_dust"}, "1": {"tag": "forge:gems/diamond"}},
+  "result": {"item": "tombstone:impregnated_diamond"}
+}

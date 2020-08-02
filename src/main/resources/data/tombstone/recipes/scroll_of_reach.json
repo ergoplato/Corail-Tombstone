@@ -1,0 +1,5 @@
+{
+  "type": "tombstone:disableable_shapeless",
+  "ingredients": [{"item": "tombstone:strange_scroll"}, {"item": "sunflower"}],
+  "result": {"item": "tombstone:scroll_of_reach"}
+}

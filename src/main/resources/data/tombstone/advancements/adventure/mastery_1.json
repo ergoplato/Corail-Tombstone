@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:impregnated_diamond"
+    },
+    "title": {
+      "translate": "tombstone.advancement.mastery_1.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.mastery_1.desc"
+    },
+    "frame": "goal",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/first_pray",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:mastery_1"
+    }
+  },
+  "rewards": {
+    "loot": ["tombstone:ancient_tablet"]
+  }
+}

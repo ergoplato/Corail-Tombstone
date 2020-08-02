@@ -1,0 +1,8 @@
+{
+  "parent": "tombstone:block/plate_subaraki_grave",
+	"textures": {
+		"0": "tombstone:block/white_tombstone",
+		"particle": "tombstone:block/white_tombstone",
+		"grave_plate": "tombstone:block/grave_plate"
+	}
+}

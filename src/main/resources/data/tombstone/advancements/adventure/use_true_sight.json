@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:scroll_of_true_sight"
+    },
+    "title": {
+      "translate": "tombstone.advancement.use_true_sight.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.use_true_sight.desc"
+    },
+    "frame": "goal",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/create_magic_scroll",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:use_true_sight"
+    }
+  },
+  "requirements": [
+    ["coded_trigger"]
+  ],
+  "rewards": {
+    "function": "tombstone:knowledge//amount/3"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:grave_key",
+      "nbt": "{enchant:true}"
+    },
+    "title": {
+      "translate": "tombstone.advancement.enchant_grave_key.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.enchant_grave_key.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/first_grave",
+  "criteria": {
+    "has_upgraded_grave_key": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tombstone:grave_key",
+            "nbt": "{enchant:true}"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:lollipop_4"
+    },
+    "title": {
+      "translate": "tombstone.advancement.expert_tasting.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.expert_tasting.desc"
+    },
+    "frame": "goal",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/eat_lollipop",
+  "criteria": {
+    "eat_lollypop_0": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "tombstone:lollipop_0"
+        }
+      }
+    },
+    "eat_lollypop_1": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "tombstone:lollipop_1"
+        }
+      }
+    },
+    "eat_lollypop_2": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "tombstone:lollipop_2"
+        }
+      }
+    },
+    "eat_lollypop_3": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "tombstone:lollipop_3"
+        }
+      }
+    },
+    "eat_lollypop_4": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "tombstone:lollipop_4"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "function": "tombstone:knowledge//amount/5"
+  }
+}

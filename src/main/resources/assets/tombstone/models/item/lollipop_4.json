@@ -1,0 +1,6 @@
+{
+  "parent": "tombstone:item/lollipop",
+  "textures": {
+    "layer0": "tombstone:item/lollipop_4"
+  }
+}

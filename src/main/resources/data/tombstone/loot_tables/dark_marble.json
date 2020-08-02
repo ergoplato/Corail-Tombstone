@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "name": "tombstone:dark_marble",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "tombstone:dark_marble"
+        }
+      ]
+    }
+  ]
+}

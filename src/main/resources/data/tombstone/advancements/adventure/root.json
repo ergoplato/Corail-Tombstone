@@ -1,0 +1,22 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:decorative_tombstone"
+    },
+    "title": {
+      "translate": "tombstone.advancement.tutorial.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.tutorial.desc"
+    },
+    "background": "tombstone:textures/block/tombstone.png",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "frame": "challenge"
+  },
+  "criteria": {
+    "auto": {
+      "trigger": "location"
+    }
+  }
+}

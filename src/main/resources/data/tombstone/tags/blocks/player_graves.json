@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "tombstone:grave_simple",
+    "tombstone:grave_normal",
+    "tombstone:grave_cross",
+    "tombstone:tombstone",
+	"tombstone:subaraki_grave",
+    "tombstone:grave_original"
+  ]
+}

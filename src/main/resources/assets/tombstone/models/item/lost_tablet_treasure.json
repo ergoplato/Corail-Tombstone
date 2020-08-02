@@ -1,0 +1,6 @@
+{
+  "parent": "tombstone:item/lost_tablet",
+  "textures": {
+    "layer0": "tombstone:item/treasure"
+  }
+}

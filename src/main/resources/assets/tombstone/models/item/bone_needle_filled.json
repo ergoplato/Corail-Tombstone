@@ -1,0 +1,6 @@
+{
+  "parent": "tombstone:item/bone_needle",
+  "textures": {
+    "layer1": "tombstone:item/bone_needle_filled"
+  }
+}

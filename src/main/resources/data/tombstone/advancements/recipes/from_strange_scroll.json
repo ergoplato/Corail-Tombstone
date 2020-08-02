@@ -1,0 +1,25 @@
+{
+	"parent": "tombstone:recipes/root",
+	"rewards": {
+		"recipes": [
+			"tombstone:scroll_of_preservation",
+			"tombstone:scroll_of_knowledge",
+			"tombstone:scroll_of_unstable_intangibleness",
+			"tombstone:scroll_of_feather_fall",
+			"tombstone:scroll_of_purification",
+			"tombstone:scroll_of_true_sight",
+			"tombstone:scroll_of_reach",
+			"tombstone:scroll_of_lightning_resistance"
+		]
+	},
+	"criteria": {
+		"has_ingredient": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [{
+					"item": "tombstone:strange_scroll"
+				}]
+			}
+		}
+	}
+}

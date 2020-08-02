@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:lily_pad",
+    "minecraft:magma_cream",
+    "minecraft:stick",
+    "minecraft:feather",
+    "minecraft:poisonous_potato"
+  ]
+}

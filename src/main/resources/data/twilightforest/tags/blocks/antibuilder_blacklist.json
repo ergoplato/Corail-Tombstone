@@ -1,0 +1,7 @@
+{
+  "__comment": "Blocks added to this tag cannot be broken nor placed by the antibuilder",
+  "replace": false,
+  "values": [
+    "#tombstone:graves"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+	"parent": "tombstone:recipes/root",
+	"rewards": {
+		"recipes": [
+			"tombstone:dark_marble",
+			"tombstone:white_marble",
+			"tombstone:fishing_rod_of_misadventure",
+			"tombstone:dust_of_vanishing",
+			"tombstone:ankh_of_pray",
+			"tombstone:impregnated_diamond",
+			"tombstone:bone_needle"
+		]
+	},
+	"criteria": {
+		"has_ingredient": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [{
+					"item": "tombstone:grave_dust"
+				}]
+			}
+		}
+	}
+}

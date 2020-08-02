@@ -1,0 +1,9 @@
+{
+  "parent": "tombstone:block/tombstone",
+  "textures": {
+    "0": "tombstone:block/white_tombstone",
+    "particle": "tombstone:block/white_tombstone",
+    "ground": "block/podzol_top",
+    "cross": "block/red_concrete"
+  }
+}

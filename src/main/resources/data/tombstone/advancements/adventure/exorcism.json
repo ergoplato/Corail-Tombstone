@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:advancement_4"
+    },
+    "title": {
+      "translate": "tombstone.advancement.exorcism.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.exorcism.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/first_pray",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:exorcism"
+    }
+  },
+  "rewards": {
+    "function": "tombstone:knowledge//amount/5"
+  }
+}

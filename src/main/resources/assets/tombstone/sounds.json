@@ -1,0 +1,29 @@
+{
+  "magic_use01": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "tombstone:magic_use01",
+        "stream": true
+      }
+    ]
+  },
+  "ghost_laugh": {
+    "category": "voice",
+    "sounds": [
+      {
+        "name": "tombstone:ghost_laugh",
+        "stream": true
+      }
+    ]
+  },
+  "ghost_howl": {
+    "category": "voice",
+    "sounds": [
+      {
+        "name": "tombstone:ghost_howl",
+        "stream": true
+      }
+    ]
+  }
+}

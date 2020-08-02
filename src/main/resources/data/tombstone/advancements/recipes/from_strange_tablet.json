@@ -1,0 +1,21 @@
+{
+	"parent": "tombstone:recipes/root",
+	"rewards": {
+		"recipes": [
+			"tombstone:tablet_of_recall",
+			"tombstone:tablet_of_assistance",
+			"tombstone:tablet_of_home",
+			"tombstone:tablet_of_cupidity"
+		]
+	},
+	"criteria": {
+		"has_ingredient": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [{
+					"item": "tombstone:strange_tablet"
+				}]
+			}
+		}
+	}
+}

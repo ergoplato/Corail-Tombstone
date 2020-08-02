@@ -1,0 +1,6 @@
+{
+  "type": "crafting_shaped",
+  "pattern": ["010", "000"],
+  "key": {"0": {"item": "tombstone:white_marble"}, "1": {"tag": "tombstone:skulls"}},
+  "result": {"item": "tombstone:decorative_grave_original", "nbt": "{model_texture:1}"}
+}

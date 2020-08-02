@@ -1,0 +1,6 @@
+{
+  "type": "tombstone:disableable_shaped",
+  "pattern": ["010", "121", "010"],
+  "key": {"0": {"item": "tombstone:grave_dust"}, "1": {"item": "lapis_lazuli"}, "2": {"item": "book"}},
+  "result": {"item": "tombstone:book_of_disenchantment"}
+}

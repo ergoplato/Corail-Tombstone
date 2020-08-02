@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "tombstone:scroll_of_reach"
+    },
+    "title": {
+      "translate": "tombstone.advancement.use_reach.title"
+    },
+    "description": {
+      "translate": "tombstone.advancement.use_reach.desc"
+    },
+    "frame": "goal",
+    "announce_to_chat": true
+  },
+  "parent": "tombstone:adventure/create_magic_scroll",
+  "criteria": {
+    "coded_trigger": {
+      "trigger": "tombstone:use_reach"
+    }
+  },
+  "requirements": [
+    ["coded_trigger"]
+  ],
+  "rewards": {
+    "function": "tombstone:knowledge//amount/3"
+  }
+}

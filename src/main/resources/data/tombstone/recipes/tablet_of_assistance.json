@@ -1,0 +1,5 @@
+{
+  "type": "tombstone:disableable_shapeless",
+  "ingredients": [{"item": "tombstone:strange_tablet"}, {"item": "gunpowder"}],
+  "result": {"item": "tombstone:tablet_of_assistance"}
+}
