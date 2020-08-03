@@ -11,7 +11,7 @@ import net.minecraft.item.Items;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.village.VillageSiege;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.biome.Biome;
@@ -67,7 +67,7 @@ public class VillageSiegeHandler {
         int spawnZ;
 
         @Override
-        public int tick(ServerWorld serverWorld, boolean spawnHostileMobs, boolean spawnPeacefulMobs) {
+        public int func_230253_a_(ServerWorld serverWorld, boolean spawnHostileMobs, boolean spawnPeacefulMobs) {
             /* when it's night */
             if (!serverWorld.isDaytime() && spawnHostileMobs) {
                 float angle = serverWorld.getCelestialAngle(0f);
@@ -134,7 +134,7 @@ public class VillageSiegeHandler {
                             this.spawnY = blockpos.getY();
                             this.spawnZ = blockpos.getZ() + MathHelper.floor(MathHelper.sin(f) * 32f);
                         }
-                        Vec3d siegeLocation = findRandomSpawnPos(serverWorld, new BlockPos(this.spawnX, this.spawnY, this.spawnZ));
+                        Vector3d siegeLocation = findRandomSpawnPos(serverWorld, new BlockPos(this.spawnX, this.spawnY, this.spawnZ));
                         // small difference with forge to allow to iterate the players
                         if (siegeLocation != null) {
                             if (MinecraftForge.EVENT_BUS.post(new VillageSiegeEvent(this, serverWorld, player, siegeLocation))) {
@@ -152,8 +152,8 @@ public class VillageSiegeHandler {
         }
 
         private void spawnZombie(ServerWorld serverWorld) {
-            Vec3d vec3d = findRandomSpawnPos(serverWorld, new BlockPos(this.spawnX, this.spawnY, this.spawnZ));
-            if (vec3d != null) {
+            Vector3d Vector3d = findRandomSpawnPos(serverWorld, new BlockPos(this.spawnX, this.spawnY, this.spawnZ));
+            if (Vector3d != null) {
                 final ZombieEntity mob;
                 try {
                     mob = EntityType.ZOMBIE.create(serverWorld);
@@ -172,7 +172,7 @@ public class VillageSiegeHandler {
                     Difficulty difficulty = serverWorld.getDifficulty();
                     mob.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(difficulty == Difficulty.HARD ? Items.DIAMOND_HELMET : (difficulty == Difficulty.NORMAL ? Items.IRON_HELMET : Items.LEATHER_HELMET)));
                 }
-                mob.setLocationAndAngles(vec3d.x, vec3d.y, vec3d.z, serverWorld.rand.nextFloat() * 360f, 0f);
+                mob.setLocationAndAngles(Vector3d.x, Vector3d.y, Vector3d.z, serverWorld.rand.nextFloat() * 360f, 0f);
                 if (EventFactory.onVillageSiegeZombieSpawn(mob)) {
                     return;
                 }
@@ -185,7 +185,7 @@ public class VillageSiegeHandler {
         }
 
         @Nullable
-        private Vec3d findRandomSpawnPos(ServerWorld serverWorld, BlockPos pos) {
+        private Vector3d findRandomSpawnPos(ServerWorld serverWorld, BlockPos pos) {
             for (int i = 0; i < 10; ++i) {
                 int x = pos.getX() + serverWorld.rand.nextInt(16) - 8;
                 int z = pos.getZ() + serverWorld.rand.nextInt(16) - 8;
@@ -193,7 +193,7 @@ public class VillageSiegeHandler {
                 BlockPos blockpos = new BlockPos(x, y, z);
                 //isBlockPosWithinSqVillageRadius
                 if (serverWorld.isVillage(blockpos) && MonsterEntity.canMonsterSpawnInLight(EntityType.ZOMBIE, serverWorld, SpawnReason.EVENT, blockpos, serverWorld.rand)) {
-                    return new Vec3d((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ());
+                    return new Vector3d((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ());
                 }
             }
 

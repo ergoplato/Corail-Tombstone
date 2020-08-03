@@ -40,9 +40,9 @@ public class ItemBlockGrave extends BlockItem {
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
         String engravedName = getEngravedName(stack);
         if (engravedName.isEmpty()) {
-            tooltip.add(LangKey.MESSAGE_ENGRAVABLE.getTranslationWithStyle(StyleType.TOOLTIP_DESC, StyleType.TOOLTIP_ITEM.getFormattingCode() + "[" + I18n.format(Items.IRON_INGOT.getTranslationKey()) + "]"));
+            tooltip.add(LangKey.MESSAGE_ENGRAVABLE.getText(StyleType.TOOLTIP_DESC, StyleType.TOOLTIP_ITEM.getFormattingCode() + "[" + I18n.format(Items.IRON_INGOT.getTranslationKey()) + "]"));
         } else {
-            tooltip.add(LangKey.MESSAGE_ENGRAVED.getTranslationWithStyle(StyleType.TOOLTIP_DESC, StyleType.TOOLTIP_ITEM.getFormattingCode() + '"' + engravedName + '"'));
+            tooltip.add(LangKey.MESSAGE_ENGRAVED.getText(StyleType.TOOLTIP_DESC, StyleType.TOOLTIP_ITEM.getFormattingCode() + '"' + engravedName + '"'));
         }
         super.addInformation(stack, world, tooltip, flag);
     }
@@ -50,7 +50,7 @@ public class ItemBlockGrave extends BlockItem {
     @Override
     public ITextComponent getDisplayName(ItemStack stack) {
         TranslationTextComponent baseTranslation = new TranslationTextComponent(getTranslationKey());
-        return getEngravedName(stack).isEmpty() ? baseTranslation : LangKey.MESSAGE_ENGRAVED_ITEM.getTranslationWithStyle(StyleType.MESSAGE_SPECIAL, baseTranslation);
+        return getEngravedName(stack).isEmpty() ? baseTranslation : LangKey.MESSAGE_ENGRAVED_ITEM.getText(StyleType.MESSAGE_SPECIAL, baseTranslation);
     }
 
     @Override

@@ -1,21 +1,16 @@
 package ovh.corail.tombstone.helper;
 
-import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
-import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.command.CommandException;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.Style;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.util.text.event.ClickEvent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.server.command.TextComponentHelper;
+import java.util.UUID;
 
-import static ovh.corail.tombstone.ModTombstone.MOD_ID;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public enum LangKey {
+	
     MESSAGE_SPELL_CAST_ON_YOU("message.spell_cast_on_you"),
     MESSAGE_DISPEL_BAD_OMEN("message.dispel_bad_omen"),
     MESSAGE_STORED_EXPERIENCE("message.stored_experience"),
@@ -175,76 +170,52 @@ public enum LangKey {
     private final String key;
 
     LangKey(String key) {
+    	
         this.key = key;
     }
-
-    public String getKey() {
-        return MOD_ID + "." + this.key;
+    
+    public IFormattableTextComponent getText(TextFormatting format, Object... args) {
+    	
+    	return this.getText(args).mergeStyle(format);
     }
-
-    public String asLog(Object... params) {
-        return getTranslation(params).getFormattedText();
+    
+    public IFormattableTextComponent getText(Style style, Object... args) {
+    	
+    	return this.getText(args).mergeStyle(style);
     }
-
-    public ITextComponent getTranslation(Object... params) {
-        return new TranslationTextComponent(getKey(), params);
+    
+    public IFormattableTextComponent getText(Object... args) {
+    	
+    	return args.length > 0 ? new TranslationTextComponent(this.key, args) : new TranslationTextComponent(this.key);
     }
-
-    public ITextComponent getTranslationWithStyle(Style style, Object... params) {
-        return getTranslation(params).setStyle(style);
+    
+    public void sendMessage(PlayerEntity player, TextFormatting format, Object... args) {
+    	
+    	this.sendMessage(player, Util.DUMMY_UUID, format, args);
     }
-
-    public SimpleCommandExceptionType createCommandExceptionType() {
-        return new SimpleCommandExceptionType(getTranslation());
+    
+    public void sendMessage(PlayerEntity player, Style style, Object... args) {
+    	
+    	this.sendMessage(player, Util.DUMMY_UUID, style, args);
     }
-
-    public DynamicCommandExceptionType createDynamicCommandExceptionType() {
-        return new DynamicCommandExceptionType(this::getTranslation);
+    
+    public void sendMessage(PlayerEntity player, Object... args) {
+    	
+    	this.sendMessage(player, Util.DUMMY_UUID, args);
     }
-
-    public CommandException asCommandException(Object... params) {
-        return new CommandException(getTranslation(params));
+    
+    public void sendMessage(PlayerEntity player, UUID senderId, TextFormatting format, Object... args) {
+    	
+    	player.sendMessage(this.getText(format, args), senderId);
     }
-
-    @OnlyIn(Dist.CLIENT)
-    public String getClientTranslation(Object... params) {
-        return I18n.format(getKey(), params);
+    
+    public void sendMessage(PlayerEntity player, UUID senderId, Style style, Object... args) {
+    	
+    	player.sendMessage(this.getText(style, args), senderId);
     }
-
-    @OnlyIn(Dist.CLIENT)
-    public String getClientTranslationWithStyle(Style style, Object... params) {
-        return style.getFormattingCode() + I18n.format(getKey(), params);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static String getClientTranslation(String message, Object... params) {
-        return I18n.format(message, params);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static String getClientTranslationWithStyle(Style style, String message, Object... params) {
-        return style.getFormattingCode() + I18n.format(message, params);
-    }
-
-    public static ITextComponent makeTranslationWithStyle(Style style, String message, Object... params) {
-        return makeTranslation(message, params).setStyle(style);
-    }
-
-    public static ITextComponent makeTranslation(String message, Object... params) {
-        return new TranslationTextComponent(message, params);
-    }
-
-    public static ITextComponent createComponentCommand(PlayerEntity sender, String command, LangKey langKey, Object... params) {
-        ITextComponent compo = createComponentTranslationWithStyle(sender, StyleType.COLOR_ON, langKey, params);
-        compo.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
-        return compo;
-    }
-
-    public static ITextComponent createComponentTranslationWithStyle(PlayerEntity sender, Style style, LangKey langKey, Object... params) {
-        return createComponentTranslationWithStyle(sender, style, langKey.getKey(), params);
-    }
-
-    public static ITextComponent createComponentTranslationWithStyle(PlayerEntity sender, Style style, String message, Object... params) {
-        return TextComponentHelper.createComponentTranslation(sender, message, params).setStyle(style);
+    
+    public void sendMessage(PlayerEntity player, UUID senderId, Object... args) {
+    	
+    	player.sendMessage(this.getText(args), senderId);
     }
 }

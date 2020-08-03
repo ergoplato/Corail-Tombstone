@@ -8,7 +8,8 @@ import com.google.common.reflect.Reflection;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.enchantment.EnchantmentType;
-import net.minecraft.world.storage.loot.conditions.LootConditionManager;
+import net.minecraft.loot.LootConditionType;
+import net.minecraft.loot.conditions.LootConditionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -57,8 +58,9 @@ public class ModTombstone {
     public static final String MOD_NAME = "Corail Tombstone";
     public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
     public static final IProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
-
-    @SuppressWarnings("UnstableApiUsage")
+    
+    public static LootConditionType OPEN_WATER;
+    
     public ModTombstone() {
         TombstoneAPIProps.COOLDOWN_HANDLER = CooldownHandler.INSTANCE;
         Reflection.initialize(PerkRegistry.class, PacketHandler.class, ModTriggers.class, ModTabs.class);
@@ -91,7 +93,7 @@ public class ModTombstone {
         CapabilityManager.INSTANCE.register(ISoulConsumer.class, Helper.getNullStorage(), TBSoulConsumerProvider::getDefault);
         PROXY.preInit();
         MinecraftForge.EVENT_BUS.register(Helper.buildKnowledgeFunction());
-        LootConditionManager.registerCondition(InOpenWaterCondition.SERIALIZER);
+        OPEN_WATER = LootConditionManager.register(MOD_ID + ":in_open_water", InOpenWaterCondition.SERIALIZER);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

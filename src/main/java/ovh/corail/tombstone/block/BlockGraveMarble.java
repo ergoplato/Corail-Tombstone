@@ -8,6 +8,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -25,14 +26,15 @@ public class BlockGraveMarble extends Block {
     private final MarbleType type;
 
     public BlockGraveMarble(MarbleType type) {
+    	
         super(getBuilder());
-        this.name = type.getName() + "_marble";
+        this.name = type.getString() + "_marble";
         this.type = type;
     }
 
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag flag) {
-        tooltip.add(LangKey.MESSAGE_CRAFTING_INGREDIENT.getTranslationWithStyle(StyleType.TOOLTIP_DESC));
+        tooltip.add(LangKey.MESSAGE_CRAFTING_INGREDIENT.getText(StyleType.TOOLTIP_DESC));
     }
 
     @Override
@@ -52,7 +54,7 @@ public class BlockGraveMarble extends Block {
     }
 
     private static Properties getBuilder() {
-        return Properties.create(Material.ROCK).hardnessAndResistance(4f, 18000000f).lightValue(0).sound(SoundType.STONE);
+        return Properties.create(Material.ROCK).hardnessAndResistance(4f, 18000000f).setLightLevel(s -> 0).sound(SoundType.STONE);
     }
 
     public enum MarbleType implements IStringSerializable {
@@ -66,9 +68,10 @@ public class BlockGraveMarble extends Block {
             return DARK;
         }
 
-        @Override
-        public final String getName() {
-            return name().toLowerCase();
-        }
+		@Override
+		public String getString() {
+
+			return name().toLowerCase();
+		}
     }
 }

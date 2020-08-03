@@ -1,5 +1,14 @@
 package ovh.corail.tombstone.tileentity;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -10,6 +19,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.Util;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
@@ -35,14 +45,6 @@ import ovh.corail.tombstone.registry.ModBlocks;
 import ovh.corail.tombstone.registry.ModEffects;
 import ovh.corail.tombstone.registry.ModPerks;
 import ovh.corail.tombstone.registry.ModTags;
-
-import javax.annotation.Nullable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.IntStream;
 
 public class TileEntityGrave extends TileEntityWritableGrave {
     protected final ItemStackHandler inventory = new ItemStackHandler(120);
@@ -109,7 +111,7 @@ public class TileEntityGrave extends TileEntityWritableGrave {
                 }
             }
             if (countLoss > 0) {
-                player.sendMessage(LangKey.MESSAGE_LOSSES_ON_DEATH.getTranslationWithStyle(StyleType.MESSAGE_SPECIAL));
+                player.sendMessage(LangKey.MESSAGE_LOSSES_ON_DEATH.getTranslationWithStyle(StyleType.MESSAGE_SPECIAL), Util.DUMMY_UUID);
             }
         }
         EventFactory.onRestoreInventory(player, this);
@@ -157,7 +159,7 @@ public class TileEntityGrave extends TileEntityWritableGrave {
         removeGraveBy(player);
         EffectHelper.capPotionDuration(player, ModEffects.ghostly_shape, 100);
         player.container.detectAndSendChanges();
-        player.sendMessage(LangKey.MESSAGE_OPEN_GRAVE_SUCCESS.getTranslation());
+        player.sendMessage(LangKey.MESSAGE_OPEN_GRAVE_SUCCESS.getTranslation(), Util.DUMMY_UUID);
     }
 
     public void dropOnGroundAndRemove() {
