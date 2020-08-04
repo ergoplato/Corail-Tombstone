@@ -69,7 +69,7 @@ public abstract class Perk extends ForgeRegistryEntry<Perk> implements Comparabl
     }
 
     @Override
-    public String getName() {
+    public String getString() {
         return this.name;
     }
 

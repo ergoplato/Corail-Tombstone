@@ -7,6 +7,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -22,7 +23,7 @@ import static ovh.corail.tombstone.api.TombstoneAPIProps.OWNER;
 public class RecipeEnchantedGraveKey extends ShapelessRecipe {
     @ObjectHolder("tombstone:grave_key")
     public static final Item GRAVE_KEY = Items.AIR;
-    private static final ItemTags.Wrapper ENCHANTED_GRAVE_KEY_INGREDIENTS = new ItemTags.Wrapper(new ResourceLocation(OWNER, "enchanted_grave_key_ingredients"));
+    private static final ITag.INamedTag ENCHANTED_GRAVE_KEY_INGREDIENTS = ItemTags.makeWrapperTag(OWNER + ":enchanted_grave_key_ingredients");
 
     public RecipeEnchantedGraveKey(ResourceLocation rl) {
         // default recipe "tombstone:enchanted_grave_key" as example
