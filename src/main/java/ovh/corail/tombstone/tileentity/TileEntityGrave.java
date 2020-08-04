@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -19,7 +20,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.Util;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
@@ -111,7 +111,8 @@ public class TileEntityGrave extends TileEntityWritableGrave {
                 }
             }
             if (countLoss > 0) {
-                player.sendMessage(LangKey.MESSAGE_LOSSES_ON_DEATH.getTranslationWithStyle(StyleType.MESSAGE_SPECIAL), Util.DUMMY_UUID);
+
+            	LangKey.MESSAGE_LOSSES_ON_DEATH.sendMessage(player, StyleType.MESSAGE_SPECIAL);
             }
         }
         EventFactory.onRestoreInventory(player, this);
@@ -159,7 +160,7 @@ public class TileEntityGrave extends TileEntityWritableGrave {
         removeGraveBy(player);
         EffectHelper.capPotionDuration(player, ModEffects.ghostly_shape, 100);
         player.container.detectAndSendChanges();
-        player.sendMessage(LangKey.MESSAGE_OPEN_GRAVE_SUCCESS.getTranslation(), Util.DUMMY_UUID);
+        LangKey.MESSAGE_OPEN_GRAVE_SUCCESS.sendMessage(player);
     }
 
     public void dropOnGroundAndRemove() {
@@ -278,8 +279,8 @@ public class TileEntityGrave extends TileEntityWritableGrave {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
-        super.read(compound);
+    public void read(BlockState state, CompoundNBT compound) {
+        super.read(state, compound);
         if (compound.contains("inventory", Constants.NBT.TAG_COMPOUND)) {
             this.inventory.deserializeNBT(compound.getCompound("inventory"));
         }

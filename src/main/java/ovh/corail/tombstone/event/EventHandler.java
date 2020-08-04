@@ -19,6 +19,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.potion.Effects;
@@ -34,10 +35,9 @@ import net.minecraft.util.concurrent.ThreadTaskExecutor;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.loot.LootTables;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
@@ -148,7 +148,7 @@ public class EventHandler {
             /* spawn protection & shared datas to client */
             MinecraftServer server = player.getServer();
             assert server != null;
-            BlockPos spawnPos = server.getWorld(DimensionType.OVERWORLD).getSpawnPoint();
+            BlockPos spawnPos = server.getWorld(World.field_234918_g_).func_241135_u_();
             int range = server.isDedicatedServer() ? server.getSpawnProtectionSize() : 0;
             PacketHandler.sendToPlayer(new UpdateClientMessage(spawnPos, range, Helper.isDateAroundHalloween(LocalDate.now()), Helper.isContributor(player)), player);
             PacketHandler.sendToPlayer(CooldownHandler.INSTANCE.getCooldownPacket(player), player);
@@ -253,7 +253,7 @@ public class EventHandler {
             if (prot != null) {
                 if (ModItems.voodoo_poppet.preventDeath(player, InventoryHelper.findItemInMainInventory(player, p -> ModItems.voodoo_poppet.canPreventDeath(p, prot)), prot)) {
                     event.setCanceled(true);
-                    player.sendMessage(prot.getLangKey().getTranslation().setStyle(StyleType.MESSAGE_SPECIAL));
+                    prot.getLangKey().sendMessage(player, StyleType.MESSAGE_SPECIAL);
                     ModTriggers.PREVENT_DEATH.get(prot).trigger(player);
                     return;
                 }
@@ -262,7 +262,7 @@ public class EventHandler {
             boolean preventDeathOutsideWorld = ConfigTombstone.player_death.preventDeathOutsideWorld.get() && !Helper.isValidPos(player.world, player.getPosition());
             ItemStack soul = !preventDeathOutsideWorld ? InventoryHelper.findItemInMainInventory(player, p -> p.getItem() == ModItems.soul_receptacle) : ItemStack.EMPTY;
             if (preventDeathOutsideWorld || !soul.isEmpty()) {
-                Location spawnPos = new SpawnHelper((ServerWorld) player.world, Helper.getCloserValidPos(player.world, new BlockPos(player))).findSpawnPlace(false);
+                Location spawnPos = new SpawnHelper((ServerWorld) player.world, Helper.getCloserValidPos(player.world, new BlockPos(player.getPositionVec()))).findSpawnPlace(false);
                 if (!spawnPos.isOrigin()) {
                     event.setCanceled(true);
                     if (!preventDeathOutsideWorld) {
@@ -273,7 +273,7 @@ public class EventHandler {
                     EffectHelper.addEffect(player, Effects.SATURATION, 1200, 9);
                     EffectHelper.addEffect(player, Effects.REGENERATION, 1200, 9);
                     EffectHelper.addEffect(player, ModEffects.diversion, 1200);
-                    player.sendMessage((preventDeathOutsideWorld ? LangKey.MESSAGE_CONFIG_PREVENT_DEATH : LangKey.MESSAGE_SOUL_PREVENT_DEATH).getTranslation());
+                    (preventDeathOutsideWorld ? LangKey.MESSAGE_CONFIG_PREVENT_DEATH : LangKey.MESSAGE_SOUL_PREVENT_DEATH).sendMessage(player);
                     Helper.teleportEntity(player, spawnPos);
                     player.fallDistance = 0f;
                     return;
@@ -548,7 +548,7 @@ public class EventHandler {
             ModItems.grave_key.reenchantOnDeath(player, keys.stream().filter(p -> !ModItems.grave_key.isEnchanted(p)).findFirst().orElse(ItemStack.EMPTY));
             storeSoulboundsOnBody(player, keys, soulbounds);
             if (!hasDrop) {
-                player.sendMessage(LangKey.MESSAGE_NO_LOOT_FOR_GRAVE.getTranslationWithStyle(StyleType.MESSAGE_SPECIAL));
+            	LangKey.MESSAGE_NO_LOOT_FOR_GRAVE.sendMessage(player, StyleType.MESSAGE_SPECIAL);
             }
             return;
         }
@@ -557,12 +557,12 @@ public class EventHandler {
 
         // check if the area requires no grave
         if (deathHandler.isNoGraveLocation(new Location(player))) {
-            player.sendMessage(LangKey.MESSAGE_NO_GRAVE_LOCATION.getTranslationWithStyle(StyleType.MESSAGE_SPECIAL));
+        	LangKey.MESSAGE_NO_GRAVE_LOCATION.sendMessage(player, StyleType.MESSAGE_SPECIAL);
             storeSoulboundsOnBody(player, keys, soulbounds);
             return;
         }
 
-        BlockPos initPos = Helper.getCloserValidPos(world, new BlockPos(player));
+        BlockPos initPos = Helper.getCloserValidPos(world, new BlockPos(player.getPosition()));
 
         // check if there's a grave of this player in the chunk and also if the last grave is close (with enough spaces to fill it with drops)
         Location spawnPos = Location.ORIGIN;
@@ -599,7 +599,7 @@ public class EventHandler {
             spawnPos = new SpawnHelper(world, initPos).findSpawnPlace(true);
             if (spawnPos.isOrigin()) {
                 storeSoulboundsOnBody(player, keys, soulbounds);
-                player.sendMessage(LangKey.MESSAGE_NO_PLACE_FOR_GRAVE.getTranslationWithStyle(StyleType.MESSAGE_SPECIAL));
+                LangKey.MESSAGE_NO_PLACE_FOR_GRAVE.sendMessage(player, StyleType.MESSAGE_SPECIAL);
                 LOGGER.info("There was nowhere to place the grave!");
                 return;
             }
@@ -619,7 +619,7 @@ public class EventHandler {
         TileEntity tile = world.getTileEntity(spawnPos.getPos());
         if (!(tile instanceof TileEntityGrave)) {
             storeSoulboundsOnBody(player, keys, soulbounds);
-            player.sendMessage(LangKey.MESSAGE_FAIL_TO_PLACE_GRAVE.getTranslationWithStyle(StyleType.MESSAGE_SPECIAL));
+            LangKey.MESSAGE_FAIL_TO_PLACE_GRAVE.sendMessage(player, StyleType.MESSAGE_SPECIAL);
             LOGGER.info(LangKey.MESSAGE_FAIL_TO_PLACE_GRAVE.getTranslation()); // Server lang
             return;
         }

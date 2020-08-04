@@ -1,5 +1,6 @@
 package ovh.corail.tombstone.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -9,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import ovh.corail.tombstone.api.capability.ITBCapability;
@@ -37,7 +39,7 @@ public class GuiKnowledge extends TBScreen {
     private final double alignmentPos;
 
     public GuiKnowledge(ITBCapability cap) {
-        super(LangKey.MESSAGE_KNOWLEDGE_OF_DEATH.getTranslation());
+        super(LangKey.MESSAGE_KNOWLEDGE_OF_DEATH.getText());
         this.cap = cap;
         for (Perk perk : PerkRegistry.perkRegistry.getValues()) {
             if (!Helper.isDisabledPerk(perk, Minecraft.getInstance().player)) {
@@ -63,8 +65,8 @@ public class GuiKnowledge extends TBScreen {
             }
             i++;
         }
-        addButton(new TBGuiButton(this.guiLeft + 10, this.guiBottom - 25, 70, 15, I18n.format("tombstone.compendium.main.title"), pressable -> getMinecraft().displayGuiScreen(new GuiInfo(null))));
-        addButton(new TBGuiButton(this.guiRight - 10 - 70, this.guiBottom - 25, 70, 15, LangKey.BUTTON_CONFIG.getClientTranslation(), pressable -> getMinecraft().displayGuiScreen(new GuiConfig())));
+        addButton(new TBGuiButton(this.guiLeft + 10, this.guiBottom - 25, 70, 15, new TranslationTextComponent("tombstone.compendium.main.title"), pressable -> getMinecraft().displayGuiScreen(new GuiInfo(null))));
+        addButton(new TBGuiButton(this.guiRight - 10 - 70, this.guiBottom - 25, 70, 15, LangKey.BUTTON_CONFIG.getText(), pressable -> getMinecraft().displayGuiScreen(new GuiConfig())));
     }
 
     @Override
@@ -87,8 +89,8 @@ public class GuiKnowledge extends TBScreen {
     }
 
     @Override
-    public void render(int mouseX, int mouseY, float partialTick) {
-        renderBackground();
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTick) {
+        renderBackground(matrixStack);
 
         this.hoveredIcon = this.icons.stream().filter(p -> p.contains(mouseX, mouseY)).findFirst().orElse(null);
         int totalPerkPoints = this.cap.getTotalPerkPoints();
@@ -102,28 +104,28 @@ public class GuiKnowledge extends TBScreen {
         RenderSystem.disableDepthTest();
         RenderSystem.color4f(1f, 1f, 1f, 1f);
 
-        hLine(this.guiLeft + 5, this.guiRight - 5, this.guiTop + 4, this.textColor);
-        hLine(this.guiLeft + 5, this.guiRight - 5, this.guiTop + 6, this.textColor);
+        hLine(matrixStack, this.guiLeft + 5, this.guiRight - 5, this.guiTop + 4, this.textColor);
+        hLine(matrixStack, this.guiLeft + 5, this.guiRight - 5, this.guiTop + 6, this.textColor);
         String titleName = LangKey.MESSAGE_KNOWLEDGE_OF_DEATH.getClientTranslation();
-        this.font.drawString(titleName, this.halfWidth - this.font.getStringWidth(titleName) / 2f, this.guiTop + 9f, this.textColor);
-        hLine(this.guiLeft + 5, this.guiRight - 5, this.guiTop + 18, this.textColor);
-        hLine(this.guiLeft + 5, this.guiRight - 5, this.guiTop + 20, this.textColor);
+        this.font.drawString(matrixStack, titleName, this.halfWidth - this.font.getStringWidth(titleName) / 2f, this.guiTop + 9f, this.textColor);
+        hLine(matrixStack, this.guiLeft + 5, this.guiRight - 5, this.guiTop + 18, this.textColor);
+        hLine(matrixStack, this.guiLeft + 5, this.guiRight - 5, this.guiTop + 20, this.textColor);
 
         RenderSystem.color4f(1f, 1f, 1f, 1f);
         getMinecraft().textureManager.bindTexture(GUI_BAR);
-        blit(this.guiLeft + 52, this.guiTop + 30, 0, 40, 182, 5, 182, 256);
-        blit(this.guiLeft + 52, this.guiTop + 30, 0, 45, (int) (182 * 0.71d * (this.cap.getKnowledge() - this.cap.getKnowledgeForLevel(totalPerkPoints)) / this.cap.getKnowledgeToReachNextLevel(totalPerkPoints + 1)), 5, 182, 256);
-        blit(this.guiLeft + 52, this.guiTop + 31, 0, 101, 182, 3, 182, 256);
+        blit(matrixStack, this.guiLeft + 52, this.guiTop + 30, 0, 40, 182, 5, 182, 256);
+        blit(matrixStack, this.guiLeft + 52, this.guiTop + 30, 0, 45, (int) (182 * 0.71d * (this.cap.getKnowledge() - this.cap.getKnowledgeForLevel(totalPerkPoints)) / this.cap.getKnowledgeToReachNextLevel(totalPerkPoints + 1)), 5, 182, 256);
+        blit(matrixStack, this.guiLeft + 52, this.guiTop + 31, 0, 101, 182, 3, 182, 256);
 
         int startAlignmentY = 44;
-        drawCenteredString(this.font, "Alignment", this.halfWidth, this.guiTop + startAlignmentY - 4, 0xffffffff);
-        fill(this.guiLeft + 20, this.guiTop + startAlignmentY + 10, this.guiRight - 20, this.guiTop + startAlignmentY + 17, 0xff000000);
+        drawCenteredString(matrixStack, this.font, "Alignment", this.halfWidth, this.guiTop + startAlignmentY - 4, 0xffffffff);
+        fill(matrixStack, this.guiLeft + 20, this.guiTop + startAlignmentY + 10, this.guiRight - 20, this.guiTop + startAlignmentY + 17, 0xff000000);
         Helper.fillGradient(this.guiLeft + 21, this.guiTop + startAlignmentY + 11, this.halfWidth, this.guiTop + startAlignmentY + 16, 0xffff0000, 0xffffffff, getBlitOffset(), true);
         Helper.fillGradient(this.halfWidth, this.guiTop + startAlignmentY + 11, this.guiRight - 21, this.guiTop + startAlignmentY + 16, 0xffffffff, 0xff0000ff, getBlitOffset(), true);
         float step = (this.xSize - 42) / 8f;
         for (int i = 0; i < 8; i++) {
             if (i != 4) {
-                vLine(this.guiLeft + 21 + (int) (i * step), this.guiTop + startAlignmentY + 10, this.guiTop + startAlignmentY + 16, 0xff000000);
+                vLine(matrixStack, this.guiLeft + 21 + (int) (i * step), this.guiTop + startAlignmentY + 10, this.guiTop + startAlignmentY + 16, 0xff000000);
             }
         }
         this.itemRenderer.renderItemAndEffectIntoGUI(this.stackSkull, this.guiLeft + 10, this.guiTop + startAlignmentY + 5);
@@ -132,19 +134,19 @@ public class GuiKnowledge extends TBScreen {
         this.itemRenderer.renderItemAndEffectIntoGUI(this.stackAnkh, this.halfWidth + adjust - 8, this.guiTop + startAlignmentY + 4);
 
         String levelString = this.leftPerkPoints + " / " + totalPerkPoints;
-        this.font.drawString(levelString, this.guiLeft + 48 - this.font.getStringWidth(levelString), this.guiTop + 28, this.textColor);
+        this.font.drawString(matrixStack, levelString, this.guiLeft + 48 - this.font.getStringWidth(levelString), this.guiTop + 28, this.textColor);
         for (PerkIcon icon : this.icons) {
-            drawPerk(icon);
+            drawPerk(matrixStack, icon);
         }
         if (Helper.isContributor(getMinecraft().player)) {
-            this.font.drawString("Contributor", this.guiLeft + 30, this.guiBottom - 45, this.bonusColor);
+            this.font.drawString(matrixStack, "Contributor", this.guiLeft + 30, this.guiBottom - 45, this.bonusColor);
         }
         if (Helper.isDateAroundHalloween()) {
             String halloweenString = "Halloween";
-            this.font.drawString(halloweenString, this.guiRight - 30 - this.font.getStringWidth(halloweenString), this.guiBottom - 45, this.bonusColor);
+            this.font.drawString(matrixStack, halloweenString, this.guiRight - 30 - this.font.getStringWidth(halloweenString), this.guiBottom - 45, this.bonusColor);
         }
-        super.render(mouseX, mouseY, partialTick);
-        drawPerkTooltip();
+        super.render(matrixStack, mouseX, mouseY, partialTick);
+        drawPerkTooltip(matrixStack);
 
         RenderSystem.enableLighting();
         RenderSystem.enableDepthTest();
@@ -169,40 +171,40 @@ public class GuiKnowledge extends TBScreen {
         return isPositive ? ratio : -ratio;
     }
 
-    private void drawPerk(PerkIcon icon) {
+    private void drawPerk(MatrixStack matrixStack, PerkIcon icon) {
         int levelWithBonus = this.cap.getPerkLevelWithBonus(getMinecraft().player, icon.perk);
         boolean isHovered = icon.equals(this.hoveredIcon);
         boolean isMax = this.cap.getPerkLevel(getMinecraft().player, icon.perk) == icon.perk.getLevelMax();
         RenderSystem.pushMatrix();
         RenderSystem.color4f(1f, 1f, 1f, 1f);
-        fill(icon.getMinX() - 1, icon.getMinY() - 1, icon.getMaxX() + 1, icon.getMaxY() + 1 + 10, 0xff16163B);
+        fill(matrixStack, icon.getMinX() - 1, icon.getMinY() - 1, icon.getMaxX() + 1, icon.getMaxY() + 1 + 10, 0xff16163B);
         if (isHovered) {
             int color = isMax ? this.maxColor : 0xff93b7d5;
-            hLine(icon.minX - 2, icon.maxX + 1, icon.minY - 2, color);
-            hLine(icon.minX - 2, icon.maxX + 1, icon.minY + 27, color);
-            vLine(icon.minX - 2, icon.minY - 2, icon.minY + 27, color);
-            vLine(icon.minX + 17, icon.minY - 2, icon.minY + 27, color);
+            hLine(matrixStack, icon.minX - 2, icon.maxX + 1, icon.minY - 2, color);
+            hLine(matrixStack,icon.minX - 2, icon.maxX + 1, icon.minY + 27, color);
+            vLine(matrixStack, icon.minX - 2, icon.minY - 2, icon.minY + 27, color);
+            vLine(matrixStack, icon.minX + 17, icon.minY - 2, icon.minY + 27, color);
         }
         if (levelWithBonus == 0 && !isHovered) {
-            fillGradient(icon.getMinX(), icon.getMinY(), icon.getMaxX(), icon.getMaxY(), 0xff333333, 0xff333333);
+            fillGradient(matrixStack, icon.getMinX(), icon.getMinY(), icon.getMaxX(), icon.getMaxY(), 0xff333333, 0xff333333);
             RenderSystem.color4f(0.13f, 0.13f, 0.13f, 0.5f);
         } else {
-            fillGradient(icon.getMinX(), icon.getMinY(), icon.getMaxX(), icon.getMaxY(), 0xff011f4b, 0xff93b7d5);
+            fillGradient(matrixStack, icon.getMinX(), icon.getMinY(), icon.getMaxX(), icon.getMaxY(), 0xff011f4b, 0xff93b7d5);
             RenderSystem.color4f(1f, 1f, 1f, 1f);
         }
         ResourceLocation texture = icon.perk.getIcon();
         if (texture != null) {
             getMinecraft().getTextureManager().bindTexture(texture);
-            blit(icon.getMinX(), icon.getMinY(), 0, 0, this.iconSize, this.iconSize, this.iconSize, this.iconSize);
+            blit(matrixStack, icon.getMinX(), icon.getMinY(), 0, 0, this.iconSize, this.iconSize, this.iconSize, this.iconSize);
         }
 
         boolean hasBonus = icon.perk.getLevelBonus(getMinecraft().player) != 0;
-        this.font.drawString("" + levelWithBonus, icon.getMinX() + (levelWithBonus > 9 ? 2.5f : 5.5f), icon.getMinY() + 18, (hasBonus ? this.bonusColor : (isMax ? this.maxColor : levelWithBonus > 0 ? this.defaultColor : this.disableColor)));
+        this.font.drawString(matrixStack, "" + levelWithBonus, icon.getMinX() + (levelWithBonus > 9 ? 2.5f : 5.5f), icon.getMinY() + 18, (hasBonus ? this.bonusColor : (isMax ? this.maxColor : levelWithBonus > 0 ? this.defaultColor : this.disableColor)));
 
         RenderSystem.popMatrix();
     }
 
-    private void drawPerkTooltip() {
+    private void drawPerkTooltip(MatrixStack matrixStack) {
         if (this.hoveredIcon != null) {
             this.hoveredPerkLevel = this.cap.getPerkLevel(getMinecraft().player, this.hoveredIcon.perk);
             int levelWithBonus = this.cap.getPerkLevelWithBonus(getMinecraft().player, hoveredIcon.perk);
@@ -226,11 +228,11 @@ public class GuiKnowledge extends TBScreen {
             } else {
                 list.add(TextFormatting.GOLD + LangKey.MESSAGE_MAX.getClientTranslation());
             }
-            drawHoveringText(list, this.hoveredIcon.minX + 10, this.hoveredIcon.minY + 10, this.font);
+            drawHoveringText(matrixStack, list, this.hoveredIcon.minX + 10, this.hoveredIcon.minY + 10, this.font);
         }
     }
 
-    private void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font) {
+    private void drawHoveringText(MatrixStack matrixStack, List<String> textLines, int x, int y, FontRenderer font) {
         int maxTextWidth = 200;
         if (!textLines.isEmpty()) {
             RenderSystem.disableRescaleNormal();
@@ -324,13 +326,13 @@ public class GuiKnowledge extends TBScreen {
                 boolean isPerkLine = splits.length > 1;
                 if (isPerkLine && this.hoveredIcon.perk.isEncrypted() && perkLine > this.cap.getPerkLevelWithBonus(getMinecraft().player, this.hoveredIcon.perk)) {
                     String subString = splits[0] + " -> ";
-                    font.drawString(subString, (float) tooltipX, (float) tooltipY, 0xffE1C87C);
+                    font.drawString(matrixStack, subString, (float) tooltipX, (float) tooltipY, 0xffE1C87C);
                     FontRenderer standardGalacticFontRenderer = getMinecraft().getFontResourceManager().getFontRenderer(Minecraft.standardGalacticFontRenderer);
                     if (standardGalacticFontRenderer != null) {
-                        standardGalacticFontRenderer.drawString(TextFormatting.DARK_GRAY + splits[1], (float) (tooltipX + font.getStringWidth(subString)), (float) tooltipY, 0xffE1C87C);
+                        standardGalacticFontRenderer.drawString(matrixStack, TextFormatting.DARK_GRAY + splits[1], (float) (tooltipX + font.getStringWidth(subString)), (float) tooltipY, 0xffE1C87C);
                     }
                 } else {
-                    font.drawString(line, (float) tooltipX, (float) tooltipY, 0xffE1C87C);
+                    font.drawString(matrixStack, line, (float) tooltipX, (float) tooltipY, 0xffE1C87C);
                 }
                 if (isPerkLine) {
                     perkLine++;

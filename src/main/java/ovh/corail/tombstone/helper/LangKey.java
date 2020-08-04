@@ -174,6 +174,11 @@ public enum LangKey {
         this.key = key;
     }
     
+    public String asLog() {
+    	
+    	return this.getText().getUnformattedComponentText();
+    }
+    
     public IFormattableTextComponent getText(TextFormatting format, Object... args) {
     	
     	return this.getText(args).mergeStyle(format);
