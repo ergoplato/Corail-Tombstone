@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipe;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -23,7 +24,7 @@ import static ovh.corail.tombstone.ModTombstone.MOD_ID;
 
 public class RecipeVoodooPoppetProtection extends ShapelessRecipe {
     private static final NonNullList<Ingredient> INGREDIENTS = NonNullList.create();
-    private static final ItemTags.Wrapper VOODOO_POPPET_INGREDIENTS = new ItemTags.Wrapper(new ResourceLocation(MOD_ID, "voodoo_poppet_ingredients"));
+    private static final ITag.INamedTag VOODOO_POPPET_INGREDIENTS = ItemTags.makeWrapperTag(MOD_ID + ":voodoo_poppet_ingredients");
 
     static {
         INGREDIENTS.add(Ingredient.fromStacks(new ItemStack(ModItems.voodoo_poppet)));
