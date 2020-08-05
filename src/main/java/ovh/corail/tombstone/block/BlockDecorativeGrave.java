@@ -11,7 +11,6 @@ import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
@@ -25,6 +24,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
@@ -174,11 +174,11 @@ public class BlockDecorativeGrave extends BlockGraveBase<TileEntityDecorativeGra
                                 }
                                 // TODO animation effect on consume soul
                                 ModSounds.playSoundAllAround(ModSounds.MAGIC_USE01, SoundCategory.PLAYERS, world, serverPlayer.getPosition(), 0.5f, 0.5f);
-                                serverPlayer.sendMessage(soulConsumer.getEnchantSuccessMessage(serverPlayer));
+                                serverPlayer.sendMessage(soulConsumer.getEnchantSuccessMessage(serverPlayer), Util.DUMMY_UUID);
                                 ModTriggers.ACTIVATE_MAGIC_ITEM.trigger(serverPlayer);
                                 EntityHelper.addKnowledge(serverPlayer, soulConsumer.getKnowledge());
                             } else {
-                                serverPlayer.sendMessage(soulConsumer.getEnchantFailedMessage(serverPlayer));
+                                serverPlayer.sendMessage(soulConsumer.getEnchantFailedMessage(serverPlayer), Util.DUMMY_UUID);
                             }
                         } else {
                         	LangKey.MESSAGE_ENCHANT_ITEM_NOT_ALLOWED.sendMessage(serverPlayer);

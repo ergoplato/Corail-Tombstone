@@ -12,6 +12,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,9 +41,9 @@ public class ItemBlockGrave extends BlockItem {
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
         String engravedName = getEngravedName(stack);
         if (engravedName.isEmpty()) {
-            tooltip.add(LangKey.MESSAGE_ENGRAVABLE.getText(StyleType.TOOLTIP_DESC, StyleType.TOOLTIP_ITEM.getFormattingCode() + "[" + I18n.format(Items.IRON_INGOT.getTranslationKey()) + "]"));
+            tooltip.add(LangKey.MESSAGE_ENGRAVABLE.getText(StyleType.TOOLTIP_DESC, new StringTextComponent("[" + I18n.format(Items.IRON_INGOT.getTranslationKey()) + "]").mergeStyle(StyleType.TOOLTIP_ITEM)));
         } else {
-            tooltip.add(LangKey.MESSAGE_ENGRAVED.getText(StyleType.TOOLTIP_DESC, StyleType.TOOLTIP_ITEM.getFormattingCode() + '"' + engravedName + '"'));
+            tooltip.add(LangKey.MESSAGE_ENGRAVED.getText(StyleType.TOOLTIP_DESC, new StringTextComponent('"' + engravedName + '"').setStyle(StyleType.TOOLTIP_ITEM)));
         }
         super.addInformation(stack, world, tooltip, flag);
     }
