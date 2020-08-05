@@ -9,6 +9,8 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifierManager;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.PhantomEntity;
@@ -34,7 +36,6 @@ import net.minecraft.util.concurrent.ThreadTaskExecutor;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.village.VillageSiege;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
@@ -342,8 +343,8 @@ public class EventHandler {
         if (!event.getTarget().equals(attacker.revengeTarget) && !event.getTarget().isPassenger()) {
             int lvl = Math.min(EntityHelper.getEnchantmentLevel(event.getTarget(), ModEnchantments.shadow_step), 5);
             if (lvl > 0) {
-                IAttributeInstance attribute = attacker.getAttributes().getAttributeInstance(SharedMonsterAttributes.FOLLOW_RANGE);
-                double range = attribute == null ? 16d : attribute.getValue();
+                AttributeModifierManager attributeManager = attacker.getAttributeManager();
+                double range = attributeManager.hasAttributeInstance(Attributes.FOLLOW_RANGE) ? attributeManager.getAttributeValue(Attributes.FOLLOW_RANGE) : 16d;
                 double mult = MathHelper.clamp((event.getTarget().isSneaking() ? 0.6d : 1d) - ((double) lvl * 0.2d) + (attacker.world.isDaytime() ? 0.5d : 0d), 0.05d, 1d);
                 if (attacker.getDistance(event.getTarget()) < (range * mult)) {
                     attacker.revengeTarget = event.getTarget();

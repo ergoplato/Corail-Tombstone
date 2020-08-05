@@ -9,7 +9,6 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -32,8 +31,6 @@ public class ItemBlockGrave extends BlockItem {
 
     public ItemBlockGrave(Block grave) {
         super(grave, new Item.Properties().group(ModTabs.mainTab).maxStackSize(1));
-        addPropertyOverride(new ResourceLocation("model_texture"), (stack, world, entity) -> 0f + (isEngraved(stack) ? 0.1f : 0f) + (getModelTexture(stack) == 1 ? 0.01f : 0f));
-        addPropertyOverride(new ResourceLocation("custom_model_data"), (stack, worldIn, entityIn) -> 0f);
     }
 
     @Override

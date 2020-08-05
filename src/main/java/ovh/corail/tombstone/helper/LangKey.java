@@ -180,6 +180,10 @@ public enum LangKey {
     LangKey(String key) {
         this.key = key;
     }
+
+    public String getKey() {
+        return MOD_ID + "." + this.key;
+    }
     
     public String asLog() {
     	return this.getText().getUnformattedComponentText();
@@ -227,7 +231,7 @@ public enum LangKey {
 
     @OnlyIn(Dist.CLIENT)
     public String getClientTranslation(Object... params) {
-        return I18n.format(MOD_ID + "." + this.key, params);
+        return I18n.format(getKey(), params);
     }
 
     @OnlyIn(Dist.CLIENT)

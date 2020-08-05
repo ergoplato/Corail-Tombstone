@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
@@ -309,7 +309,7 @@ public class SpawnHelper {
             return EnumSpawnPlace.UNSAFE;
         }
 
-        IFluidState fluidState = state.getFluidState();
+        FluidState fluidState = state.getFluidState();
         if (!fluidState.isEmpty() && fluidState.getLevel() >= 8) {
             return fluidState.isTagged(FluidTags.WATER) && block != Blocks.BUBBLE_COLUMN && state.getCollisionShape(world, pos).isEmpty() ? EnumSpawnPlace.WATER : EnumSpawnPlace.UNSAFE;
         }

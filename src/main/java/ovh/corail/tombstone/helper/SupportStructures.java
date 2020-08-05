@@ -2,11 +2,9 @@ package ovh.corail.tombstone.helper;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.registries.GameData;
 import org.apache.commons.lang3.tuple.Pair;
 

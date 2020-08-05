@@ -19,6 +19,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.concurrent.ThreadTaskExecutor;
+import net.minecraft.world.storage.FolderName;
 import org.apache.commons.lang3.tuple.Pair;
 import ovh.corail.tombstone.ModTombstone;
 import ovh.corail.tombstone.config.ConfigTombstone;
@@ -31,6 +32,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -110,7 +112,7 @@ public class CommandTBRecovery extends TombstoneCommand {
     }
 
     public static int saveAllPlayers(MinecraftServer server, Consumer<Boolean> consumer) {
-        File baseFolder = new File(server.getWorld(DimensionType.OVERWORLD).getSaveHandler().getWorldDirectory(), MOD_ID + "/saved_players");
+        File baseFolder = server.func_240776_a_(SAVE_FOLDER).toFile();
         if (!baseFolder.exists() && !baseFolder.mkdirs()) {
             ModTombstone.LOGGER.info("The backup folder for players cannot be created");
             consumer.accept(false);
@@ -197,7 +199,7 @@ public class CommandTBRecovery extends TombstoneCommand {
 
     private static @Nullable
     File getPlayerFolder(ServerPlayerEntity player) {
-        File saveFolder = new File(player.server.getWorld(DimensionType.OVERWORLD).getSaveHandler().getWorldDirectory(), MOD_ID + "/saved_players/" + player.getUniqueID());
+        File saveFolder = new File(player.server.func_240776_a_(SAVE_FOLDER).toFile(), player.getUniqueID() + "");
         if (!saveFolder.exists() && !saveFolder.mkdirs()) {
             ModTombstone.LOGGER.info("The backup folder cannot be created");
             return null;
@@ -267,7 +269,7 @@ public class CommandTBRecovery extends TombstoneCommand {
     }
 
     private File getBackupFile(CommandSource sender, UUID id, String fileString) {
-        File saveFolder = new File(sender.getServer().getWorld(DimensionType.OVERWORLD).getSaveHandler().getWorldDirectory(), MOD_ID + "/saved_players/" + id);
+        File saveFolder = new File (sender.getServer().func_240776_a_(SAVE_FOLDER).toFile(), id + "");
         if (!saveFolder.exists()) {
             throw LangKey.MESSAGE_RECOVERY_NO_FOLDER.asCommandException(saveFolder.getAbsolutePath());
         }
@@ -290,7 +292,7 @@ public class CommandTBRecovery extends TombstoneCommand {
     }
 
     private SuggestionProvider<CommandSource> SUGGESTION_UUID = (ctx, build) -> {
-        File checkedDir = new File(ctx.getSource().getServer().getWorld(DimensionType.OVERWORLD).getSaveHandler().getWorldDirectory(), MOD_ID + "/saved_players/");
+        File checkedDir = ctx.getSource().getServer().func_240776_a_(SAVE_FOLDER).toFile();
         File[] uuidDirs = checkedDir.listFiles((file, name) -> {
             boolean valid = file.isDirectory() && name.contains("-");
             if (valid) {
@@ -306,7 +308,7 @@ public class CommandTBRecovery extends TombstoneCommand {
 
     private SuggestionProvider<CommandSource> SUGGESTION_LOAD_OFFLINE = (ctx, build) -> {
         List<String> list = new ArrayList<>();
-        File checkedFile = new File(ctx.getSource().getServer().getWorld(DimensionType.OVERWORLD).getSaveHandler().getWorldDirectory(), MOD_ID + "/saved_players/" + UUID.fromString(StringArgumentType.getString(ctx, "uuid")));
+        File checkedFile = new File(ctx.getSource().getServer().func_240776_a_(SAVE_FOLDER).toFile(), UUID.fromString(StringArgumentType.getString(ctx, "uuid")) + "");
         if (checkedFile.exists()) {
             File[] matchingFiles = checkedFile.listFiles((file, name) -> name.endsWith(".save"));
             if (matchingFiles != null) {
@@ -321,7 +323,7 @@ public class CommandTBRecovery extends TombstoneCommand {
     private SuggestionProvider<CommandSource> SUGGESTION_LOAD_PLAYER = (ctx, build) -> {
         ServerPlayerEntity player = EntityArgument.getPlayer(ctx, "player");
         List<String> list = new ArrayList<>();
-        File checkedFile = new File(ctx.getSource().getServer().getWorld(DimensionType.OVERWORLD).getSaveHandler().getWorldDirectory(), MOD_ID + "/saved_players/" + player.getUniqueID());
+        File checkedFile = new File(ctx.getSource().getServer().func_240776_a_(SAVE_FOLDER).toFile(), player.getUniqueID() + "");
         if (checkedFile.exists()) {
             File[] matchingFiles = checkedFile.listFiles((file, name) -> name.endsWith(".save"));
             if (matchingFiles != null) {
@@ -334,4 +336,5 @@ public class CommandTBRecovery extends TombstoneCommand {
     };
 
     private enum SubCommand implements ISubCommand {SAVE_ALL_PLAYERS, SAVE_PLAYER, LOAD_PLAYER, LOAD_OFFLINE}
+    private static final FolderName SAVE_FOLDER = new FolderName(MOD_ID + "/saved_players");
 }

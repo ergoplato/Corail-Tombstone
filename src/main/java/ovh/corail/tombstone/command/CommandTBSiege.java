@@ -46,7 +46,7 @@ public class CommandTBSiege extends TombstoneCommand {
         if (world.isDaytime()) {
             throw LangKey.MESSAGE_ONLY_AT_NIGHT.asCommandException();
         }
-        CustomVillageSiege villageSiege = world.field_241104_N_.stream().filter(spawner -> spawner instanceof CustomVillageSiege).findFirst().orElseThrow(new CommandException(new StringTextComponent("The Overworld chunk generator is not the vanilla one"));
+        CustomVillageSiege villageSiege = (CustomVillageSiege) world.field_241104_N_.stream().filter(spawner -> spawner instanceof CustomVillageSiege).findFirst().orElseThrow(() -> new CommandException(new StringTextComponent("The Overworld chunk generator is not the vanilla one")));
         switch (villageSiege.siegeState) {
             case SIEGE_START:
             case SPAWN_MOBS:

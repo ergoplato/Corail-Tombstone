@@ -7,7 +7,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
@@ -26,7 +25,6 @@ import java.util.List;
 public class ItemBoneNeedle extends ItemGeneric implements IImpregnable {
     public ItemBoneNeedle() {
         super("bone_needle", getBuilder(true).maxStackSize(1));
-        addPropertyOverride(FILLED_PROPERTY, (stack, world, entity) -> getEntityType(stack).isEmpty() ? 0f : 1f);
     }
 
     @Override
@@ -91,6 +89,5 @@ public class ItemBoneNeedle extends ItemGeneric implements IImpregnable {
     }
 
     private static final int IMPREGNATED_MAX_TIME = TimeHelper.tickFromMinute(30);
-    private static final ResourceLocation FILLED_PROPERTY = new ResourceLocation("filled");
     private static final String IMPREGNATED_TIME_NBT_LONG = "impregnated_time";
 }

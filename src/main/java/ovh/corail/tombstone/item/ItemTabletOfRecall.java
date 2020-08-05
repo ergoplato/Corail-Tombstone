@@ -33,7 +33,6 @@ public class ItemTabletOfRecall extends ItemTablet {
 
     public ItemTabletOfRecall() {
         super("tablet_of_recall", SharedConfigTombstone.allowed_magic_items.allowTabletOfRecall::get);
-        addPropertyOverride(ANCIENT_PROPERTY, (stack, worldIn, entityIn) -> isAncient(stack) ? 1f : 0f);
     }
 
     @Override

@@ -30,6 +30,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.SnowballEntity;
 import net.minecraft.item.EnchantedBookItem;
+import net.minecraft.item.FishingRodItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -73,6 +76,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.opengl.GL11;
 import ovh.corail.tombstone.api.capability.Perk;
 import ovh.corail.tombstone.api.magic.ISoulConsumer;
+import ovh.corail.tombstone.block.ItemBlockGrave;
 import ovh.corail.tombstone.command.CommandTBAcceptTeleport;
 import ovh.corail.tombstone.command.CommandTBBind;
 import ovh.corail.tombstone.command.CommandTBKnownledge;
@@ -90,7 +94,10 @@ import ovh.corail.tombstone.command.CommandTBTeleportGrave;
 import ovh.corail.tombstone.command.CommandTBTeleportHome;
 import ovh.corail.tombstone.config.ConfigTombstone;
 import ovh.corail.tombstone.config.SharedConfigTombstone;
+import ovh.corail.tombstone.item.ItemBoneNeedle;
+import ovh.corail.tombstone.registry.ModBlocks;
 import ovh.corail.tombstone.registry.ModEnchantments;
+import ovh.corail.tombstone.registry.ModItems;
 import ovh.corail.tombstone.registry.ModTriggers;
 
 import javax.annotation.Nullable;
@@ -730,5 +737,30 @@ public class Helper {
         new CommandTBRequestTeleport(commandDispatcher).registerCommand();
         new CommandTBTeleportDeath(commandDispatcher).registerCommand();
         new CommandTBBind(commandDispatcher).registerCommand();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void initModelProperties() {
+        for (Block decorativeGrave : ModBlocks.decorative_graves.values()) {
+            ItemModelsProperties.func_239418_a_(decorativeGrave.asItem(), new ResourceLocation("model_texture"), (stack, world, entity) -> (ItemBlockGrave.isEngraved(stack) ? 0.1f : 0f) + (ItemBlockGrave.getModelTexture(stack) == 1 ? 0.01f : 0f));
+        }
+        ItemModelsProperties.func_239418_a_(ModItems.bone_needle, new ResourceLocation("filled"), (stack, world, entity) -> ModItems.bone_needle.getEntityType(stack).isEmpty() ? 0f : 1f);
+        ItemModelsProperties.func_239418_a_(ModItems.lost_tablet, new ResourceLocation("structure"), (stack, world, player) -> {
+            String structureId = ModItems.lost_tablet.getStructureId(stack);
+            return structureId != null ? SupportStructures.VILLAGE.is(structureId) ? 0.5f : 1f : 0f;
+        });
+        ItemModelsProperties.func_239418_a_(ModItems.tablet_of_home, new ResourceLocation("ancient"), (stack, worldIn, entityIn) -> ModItems.tablet_of_home.isAncient(stack) ? 1f : 0f);
+        ItemModelsProperties.func_239418_a_(ModItems.tablet_of_recall, new ResourceLocation("ancient"), (stack, worldIn, entityIn) -> ModItems.tablet_of_recall.isAncient(stack) ? 1f : 0f);
+        ItemModelsProperties.func_239418_a_(ModItems.fishing_rod_of_misadventure, new ResourceLocation("cast"), (stack, world, entity) -> {
+            if (entity == null) {
+                return 0f;
+            }
+            boolean isMainHand = entity.getHeldItemMainhand() == stack;
+            boolean isOffhand = entity.getHeldItemOffhand() == stack;
+            if (entity.getHeldItemMainhand().getItem() instanceof FishingRodItem) {
+                isOffhand = false;
+            }
+            return (isMainHand || isOffhand) && entity instanceof PlayerEntity && ((PlayerEntity)entity).fishingBobber != null ? 1f : 0f;
+        });
     }
 }

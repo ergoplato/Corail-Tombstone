@@ -217,7 +217,7 @@ public class GuiKnowledge extends TBScreen {
             IntStream.rangeClosed(1, this.hoveredIcon.perk.getLevelMax()).forEach(i -> {
                 String info = this.hoveredIcon.perk.getTooltip(i, this.hoveredPerkLevel, levelWithBonus);
                 if (!info.isEmpty()) {
-                    list.add((this.hoveredPerkLevel >= i ? TextFormatting.WHITE : (hoveredIcon.perk.isEncrypted() ? levelWithBonus >= i : levelWithBonus == i) ? TextFormatting.DARK_PURPLE : TextFormatting.DARK_GRAY).toString() + i + " -> " + LangKey.getClientTranslation(info));
+                    list.add((this.hoveredPerkLevel >= i ? TextFormatting.WHITE : (hoveredIcon.perk.isEncrypted() ? levelWithBonus >= i : levelWithBonus == i) ? TextFormatting.DARK_PURPLE : TextFormatting.DARK_GRAY).toString() + i + " -> " + I18n.format(info));
                 }
             });
             if (this.hoveredPerkLevel < this.hoveredIcon.perk.getLevelMax()) {

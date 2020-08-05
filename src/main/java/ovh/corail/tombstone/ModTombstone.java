@@ -100,6 +100,7 @@ public class ModTombstone {
     private void clientSetup(final FMLClientSetupEvent event) {
         ModBlocks.decorative_graves.values().forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutout()));
         ModBlocks.graves.values().forEach(block -> RenderTypeLookup.setRenderLayer(block, RenderType.getCutout()));
+        Helper.initModelProperties();
     }
 
     private void onServerStarting(FMLServerStartingEvent event) {

@@ -10,7 +10,6 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -38,7 +37,6 @@ public class ItemFishingRodOfMisadventure extends FishingRodItem implements ISou
 
     public ItemFishingRodOfMisadventure() {
         super(new Properties().group(ModTabs.mainTab).maxStackSize(1).defaultMaxDamage(32)); // half durability
-        addPropertyOverride(new ResourceLocation("custom_model_data"), (stack, worldIn, entityIn) -> 0f);
     }
 
     @Override

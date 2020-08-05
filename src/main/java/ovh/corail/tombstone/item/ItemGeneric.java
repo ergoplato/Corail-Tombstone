@@ -7,7 +7,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -50,7 +49,6 @@ public class ItemGeneric extends Item implements IDisableable {
         super(builder);
         this.name = name;
         this.supplierEnabled = supplierEnabled;
-        addPropertyOverride(new ResourceLocation("custom_model_data"), (stack, worldIn, entityIn) -> 0f);
     }
 
     public String getSimpleName() {

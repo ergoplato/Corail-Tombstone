@@ -6,7 +6,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -39,10 +38,6 @@ import java.util.List;
 public class ItemLostTablet extends ItemGraveMagic {
     public ItemLostTablet() {
         super("lost_tablet", SharedConfigTombstone.allowed_magic_items.allowLostTablet::get);
-        addPropertyOverride(new ResourceLocation("structure"), (stack, world, player) -> {
-            String structureId = getStructureId(stack);
-            return structureId != null ? SupportStructures.VILLAGE.is(structureId) ? 0.5f : 1f : 0f;
-        });
     }
 
     @Override
@@ -148,7 +143,7 @@ public class ItemLostTablet extends ItemGraveMagic {
     }
 
     @Nullable
-    private String getStructureId(ItemStack stack) {
+    public String getStructureId(ItemStack stack) {
         if (stack.getItem() == this) {
             CompoundNBT tag = stack.getTag();
             if (tag != null) {

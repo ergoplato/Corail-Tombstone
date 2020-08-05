@@ -31,7 +31,6 @@ public class ItemTabletOfHome extends ItemTablet {
 
     public ItemTabletOfHome() {
         super("tablet_of_home", SharedConfigTombstone.allowed_magic_items.allowTabletOfHome::get);
-        addPropertyOverride(ANCIENT_PROPERTY, (stack, worldIn, entityIn) -> isAncient(stack) ? 1f : 0f);
     }
 
     @Override
