@@ -11,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -75,12 +74,12 @@ public class ItemLostTablet extends ItemGraveMagic {
                 ServerPlayerEntity player = (ServerPlayerEntity) entity;
                 boolean success = wakeUpMagic(player, stack);
                 if (success) {
-                    player.sendMessage(LangKey.MESSAGE_LOST_TABLET_WAKE_UP_SUCCESS.getTranslationWithStyle(StyleType.MESSAGE_SPELL));
+                    LangKey.MESSAGE_LOST_TABLET_WAKE_UP_SUCCESS.sendMessage(player, StyleType.MESSAGE_SPELL);
                 } else {
                     if (Helper.random.nextBoolean()) {
                         setCooldown(world, stack, TimeHelper.tickFromSecond(Helper.getRandom(1500, 1800)));
                     } else {
-                        player.sendMessage(LangKey.MESSAGE_LOST_TABLET_WAKE_UP_FAILED.getTranslationWithStyle(StyleType.MESSAGE_SPELL));
+                        LangKey.MESSAGE_LOST_TABLET_WAKE_UP_FAILED.sendMessage(player, StyleType.MESSAGE_SPELL);
                         stack.shrink(1);
                         ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ModItems.grave_dust, Helper.getRandom(3, 5)));
                         player.container.detectAndSendChanges();
@@ -198,12 +197,12 @@ public class ItemLostTablet extends ItemGraveMagic {
         Location location = getStructurePos(stack);
         String structureId = getStructureId(stack);
         if (structureId == null || location.isOrigin() || Helper.isInvalidDimension(location.dim)) {
-            player.sendMessage(LangKey.MESSAGE_TELEPORT_FAILED.getTranslation());
+            LangKey.MESSAGE_TELEPORT_FAILED.sendMessage(player);
             resetStack(world, stack);
             return false;
         }
         if (!ConfigTombstone.general.teleportDim.get() && !location.isSameDimension(world)) {
-            player.sendMessage(LangKey.MESSAGE_TELEPORT_SAME_DIMENSION.getTranslation());
+            LangKey.MESSAGE_TELEPORT_SAME_DIMENSION.sendMessage(player);
             return false;
         }
         DimensionType dimType = DimensionType.getById(location.dim);
@@ -211,13 +210,13 @@ public class ItemLostTablet extends ItemGraveMagic {
         ServerWorld targetWorld = player.getServer().getWorld(dimType);
         // TODO break tablets instead
         if (!Helper.isValidPos(targetWorld, location.getPos())) {
-            player.sendMessage(LangKey.MESSAGE_TELEPORT_FAILED.getTranslation());
+            LangKey.MESSAGE_TELEPORT_FAILED.sendMessage(player);
             resetStack(world, stack);
             return false;
         }
         Location spawnLoc = new SpawnHelper(targetWorld, location.getPos()).findPlaceInStructure(structureId);
         if (spawnLoc.isOrigin()) {
-            player.sendMessage(LangKey.MESSAGE_NO_SPAWN.getTranslation());
+            LangKey.MESSAGE_NO_SPAWN.sendMessage(player);
             resetStack(world, stack);
             return false;
         }
@@ -226,7 +225,7 @@ public class ItemLostTablet extends ItemGraveMagic {
         NBTStackHelper.setLocation(stack, STRUCTURE_POS_NBT_LOCATION, spawnLoc);
         CallbackHandler.addCallback(1, () -> {
             PlayerEntity newPlayer = Helper.teleportEntity(player, spawnLoc);
-            newPlayer.sendMessage(LangKey.MESSAGE_TELEPORT_SUCCESS.getTranslation());
+            LangKey.MESSAGE_TELEPORT_SUCCESS.sendMessage(newPlayer);
             ModTriggers.USE_LOST_TABLET.trigger(player);
         });
         return true;

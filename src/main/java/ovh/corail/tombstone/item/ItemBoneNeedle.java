@@ -5,8 +5,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -49,7 +51,7 @@ public class ItemBoneNeedle extends ItemGeneric implements IImpregnable {
     }
 
     @Override
-    public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
+    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity target, Hand hand) {
         ItemStack mainHandstack;
         if (EntityHelper.isValidPlayer(player) && hand == Hand.MAIN_HAND && (mainHandstack = player.getHeldItemMainhand()).getItem() == this && !EntityHelper.hasCooldown(player, this)) {
             EntityHelper.setCooldown(player, this, 10);
@@ -58,11 +60,11 @@ public class ItemBoneNeedle extends ItemGeneric implements IImpregnable {
                 if (valid) {
                     NBTStackHelper.setLong(stack, IMPREGNATED_TIME_NBT_LONG, TimeHelper.worldTicks(player.world) + IMPREGNATED_MAX_TIME);
                 }
-                player.sendMessage(valid ? LangKey.MESSAGE_IMPREGNATE_NEEDLE_SUCCESS.getTranslationWithStyle(StyleType.MESSAGE_SPECIAL, target.getName()) : LangKey.MESSAGE_IMPREGNATE_NEEDLE_FAILED.getTranslationWithStyle(StyleType.MESSAGE_SPECIAL));
+                player.sendMessage(valid ? LangKey.MESSAGE_IMPREGNATE_NEEDLE_SUCCESS.getText(StyleType.MESSAGE_SPECIAL, target.getName()) : LangKey.MESSAGE_IMPREGNATE_NEEDLE_FAILED.getText(StyleType.MESSAGE_SPECIAL), Util.DUMMY_UUID);
             }
-            return true;
+            return ActionResultType.SUCCESS;
         }
-        return false;
+        return ActionResultType.FAIL;
     }
 
     @Override
