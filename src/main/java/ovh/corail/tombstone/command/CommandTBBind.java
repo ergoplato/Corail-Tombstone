@@ -9,13 +9,14 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.Constants;
 import ovh.corail.tombstone.api.cooldown.CooldownType;
@@ -84,7 +85,7 @@ public class CommandTBBind extends TombstoneCommand {
         IntStream.range(0, locations.size()).forEach(i -> {
             Location location = locations.get(i);
             if (!location.isOrigin()) {
-                player.sendMessage(new StringTextComponent((i + 1) + " -> {" + location.x + ", " + location.y + ", " + location.z + ", " + location.dim + "}"));
+                player.sendMessage(new StringTextComponent((i + 1) + " -> {" + location.x + ", " + location.y + ", " + location.z + ", " + location.dim + "}"), Util.DUMMY_UUID);
             }
         });
         return 1;
@@ -100,7 +101,7 @@ public class CommandTBBind extends TombstoneCommand {
         int cd = CooldownHandler.INSTANCE.getCooldown(player, CooldownType.TELEPORT_BIND);
         if (cd > 0) {
             int[] timeArray = TimeHelper.getTimeArray(cd);
-            player.sendMessage(LangKey.MESSAGE_COMMAND_IN_COOLDOWN.getTranslation(String.format("%02d", timeArray[0]), String.format("%02d", timeArray[1]), String.format("%02d", timeArray[2])));
+            LangKey.MESSAGE_COMMAND_IN_COOLDOWN.sendMessage(player, String.format("%02d", timeArray[0]), String.format("%02d", timeArray[1]), String.format("%02d", timeArray[2]));
             return 0;
         }
         DimensionType dimensionType = getOrThrowDimensionType(location.dim);
@@ -112,9 +113,9 @@ public class CommandTBBind extends TombstoneCommand {
         CooldownHandler.INSTANCE.resetCooldown(player, CooldownType.TELEPORT_BIND);
         Entity newEntity = Helper.teleportEntity(player, spawnPlace);
         if (EntityHelper.isValidPlayer(newEntity)) {
-            newEntity.sendMessage(LangKey.MESSAGE_TELEPORT_SUCCESS.getTranslationWithStyle(StyleType.MESSAGE_SPELL));
+            LangKey.MESSAGE_TELEPORT_SUCCESS.sendMessage((PlayerEntity) newEntity, StyleType.MESSAGE_SPELL);
         }
-        sendMessage(sender, LangKey.MESSAGE_TELEPORT_TARGET_TO_LOCATION.getTranslation(newEntity.getName(), LangKey.MESSAGE_HERE.getTranslation(), spawnPlace.x, spawnPlace.y, spawnPlace.z, spawnPlace.dim), false);
+        sendMessage(sender, LangKey.MESSAGE_TELEPORT_TARGET_TO_LOCATION.getText(newEntity.getName(), LangKey.MESSAGE_HERE.getText(), spawnPlace.x, spawnPlace.y, spawnPlace.z, spawnPlace.dim), false);
         return 1;
     }
 
@@ -142,7 +143,7 @@ public class CommandTBBind extends TombstoneCommand {
             setOrReplaceLocationInListNBT(locationList, location, bindId).putByte(BIND_LOCATION_ID_NBT_BYTE, (byte) bindId);
         }
         persistentTag.put(BIND_LOCATIONS_NBT_LIST, locationList);
-        player.sendMessage(LangKey.MESSAGE_BIND_LOCATION.getTranslation());
+        LangKey.MESSAGE_BIND_LOCATION.sendMessage(player);
         return 1;
     }
 

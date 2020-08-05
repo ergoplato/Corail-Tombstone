@@ -7,11 +7,8 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.village.VillageSiege;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.OverworldChunkGenerator;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.DimensionManager;
 import ovh.corail.tombstone.config.ConfigTombstone;
 import ovh.corail.tombstone.helper.LangKey;
 import ovh.corail.tombstone.helper.VillageSiegeHandler.CustomVillageSiege;
@@ -64,7 +61,7 @@ public class CommandTBSiege extends TombstoneCommand {
                 case SIEGE_END:
                     currentSiege.hasFailedTrySiege = false;
                     currentSiege.siegeState = SIEGE_START;
-                    sendMessage(sender, LangKey.MESSAGE_START_SIEGE_SUCCESS.getTranslation(), false);
+                    sendMessage(sender, LangKey.MESSAGE_START_SIEGE_SUCCESS.getText(), false);
             }
         }
         return 1;

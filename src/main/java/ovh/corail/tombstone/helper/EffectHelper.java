@@ -5,7 +5,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
-import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -173,7 +172,7 @@ public class EffectHelper {
         EffectInstance effect = getRandomEffect(duration, isBad);
         if (effect != null) {
             if (withMessage && !effect.getPotion().getName().isEmpty()) {
-                player.sendMessage(LangKey.MESSAGE_SPELL_CAST_ON_YOU.getTranslationWithStyle(StyleType.MESSAGE_SPELL, new TranslationTextComponent(effect.getPotion().getName()).setStyle(StyleType.MESSAGE_SPECIAL)), Util.DUMMY_UUID);
+                LangKey.MESSAGE_SPELL_CAST_ON_YOU.sendMessage(player, StyleType.MESSAGE_SPELL, new TranslationTextComponent(effect.getPotion().getName()).setStyle(StyleType.MESSAGE_SPECIAL));
             }
             addEffect(player, effect);
         }

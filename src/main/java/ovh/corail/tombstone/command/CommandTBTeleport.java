@@ -8,8 +8,8 @@ import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.BlockPosArgument;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 import ovh.corail.tombstone.helper.EntityHelper;
 import ovh.corail.tombstone.helper.Helper;
@@ -79,9 +79,9 @@ public class CommandTBTeleport extends TombstoneCommand {
 
         Entity newEntity = Helper.teleportEntity(source, destLoc);
         if (EntityHelper.isValidPlayer(newEntity)) {
-            newEntity.sendMessage(LangKey.MESSAGE_TELEPORT_SUCCESS.getTranslationWithStyle(StyleType.MESSAGE_SPELL));
+            LangKey.MESSAGE_TELEPORT_SUCCESS.sendMessage((PlayerEntity) newEntity, StyleType.MESSAGE_SPELL);
         }
-        sendMessage(sender, LangKey.MESSAGE_TELEPORT_TARGET_TO_LOCATION.getTranslation(newEntity.getName(), LangKey.MESSAGE_HERE.getTranslation(), destLoc.x, destLoc.y, destLoc.z, destLoc.dim), false);
+        sendMessage(sender, LangKey.MESSAGE_TELEPORT_TARGET_TO_LOCATION.getText(newEntity.getName(), LangKey.MESSAGE_HERE.getText(), destLoc.x, destLoc.y, destLoc.z, destLoc.dim), false);
         return 1;
     }
 }

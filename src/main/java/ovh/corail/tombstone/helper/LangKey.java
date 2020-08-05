@@ -1,13 +1,14 @@
 package ovh.corail.tombstone.helper;
 
-import java.util.UUID;
-
+import net.minecraft.command.CommandException;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+
+import java.util.UUID;
 
 public enum LangKey {
 	
@@ -222,5 +223,9 @@ public enum LangKey {
     public void sendMessage(PlayerEntity player, UUID senderId, Object... args) {
     	
     	player.sendMessage(this.getText(args), senderId);
+    }
+
+    public CommandException asCommandException(Object... params) {
+        return new CommandException(getText(params));
     }
 }

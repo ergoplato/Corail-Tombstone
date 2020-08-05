@@ -53,17 +53,17 @@ public class ItemTabletOfHome extends ItemTablet {
     protected boolean doEffects(World world, ServerPlayerEntity player, ItemStack stack) {
         Pair<World, BlockPos> respawnPoint = CommandTBTeleportHome.getRespawnPoint(player);
         if (respawnPoint.getLeft() == null || respawnPoint.getRight() == null) {
-            player.sendMessage(LangKey.MESSAGE_TELEPORT_FAILED.getTranslation());
+            LangKey.MESSAGE_TELEPORT_FAILED.sendMessage(player);
             return false;
         }
         boolean isSameDim = respawnPoint.getLeft() == world;
         if (!isSameDim && !ConfigTombstone.general.teleportDim.get()) {
-            player.sendMessage(LangKey.MESSAGE_TELEPORT_SAME_DIMENSION.getTranslation());
+            LangKey.MESSAGE_TELEPORT_SAME_DIMENSION.sendMessage(player);
             return false;
         }
         Location location = new SpawnHelper((ServerWorld) respawnPoint.getLeft(), respawnPoint.getRight()).findSpawnPlace(false);
         if (location.isOrigin()) {
-            player.sendMessage(LangKey.MESSAGE_TELEPORT_FAILED.getTranslation());
+            LangKey.MESSAGE_TELEPORT_FAILED.sendMessage(player);
             return false;
         }
         CallbackHandler.addCallback(1, () -> {
@@ -74,7 +74,7 @@ public class ItemTabletOfHome extends ItemTablet {
                 List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(player, area);
                 entities.forEach(entity -> Helper.teleportEntity(entity, new Location(newPlayer)));
             }
-            newPlayer.sendMessage(LangKey.MESSAGE_TELEPORT_SUCCESS.getTranslation());
+            LangKey.MESSAGE_TELEPORT_SUCCESS.sendMessage(newPlayer);
             ModTriggers.USE_HOME.trigger(player);
         });
         return true;

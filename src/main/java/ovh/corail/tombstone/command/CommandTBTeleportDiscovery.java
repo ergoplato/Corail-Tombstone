@@ -8,6 +8,7 @@ import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.command.arguments.ResourceLocationArgument;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
@@ -71,9 +72,9 @@ public class CommandTBTeleportDiscovery extends TombstoneCommand {
         }
         runNextTick(() -> {
             Entity newEntity = Helper.teleportEntity(target, spawnLoc);
-            sendMessage(sender, LangKey.MESSAGE_TELEPORT_TARGET_TO_LOCATION.getTranslation(newEntity.getName(), LangKey.MESSAGE_HERE.getTranslation(), spawnLoc.x, spawnLoc.y, spawnLoc.z, spawnLoc.dim), false);
+            sendMessage(sender, LangKey.MESSAGE_TELEPORT_TARGET_TO_LOCATION.getText(newEntity.getName(), LangKey.MESSAGE_HERE.getText(), spawnLoc.x, spawnLoc.y, spawnLoc.z, spawnLoc.dim), false);
             if (EntityHelper.isValidPlayer(newEntity)) {
-                newEntity.sendMessage(LangKey.MESSAGE_TELEPORT_SUCCESS.getTranslationWithStyle(StyleType.MESSAGE_SPELL));
+                LangKey.MESSAGE_TELEPORT_SUCCESS.sendMessage((PlayerEntity) newEntity, StyleType.MESSAGE_SPELL));
             }
         });
         return 1;

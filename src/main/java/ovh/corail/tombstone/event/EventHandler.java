@@ -620,7 +620,7 @@ public class EventHandler {
         if (!(tile instanceof TileEntityGrave)) {
             storeSoulboundsOnBody(player, keys, soulbounds);
             LangKey.MESSAGE_FAIL_TO_PLACE_GRAVE.sendMessage(player, StyleType.MESSAGE_SPECIAL);
-            LOGGER.info(LangKey.MESSAGE_FAIL_TO_PLACE_GRAVE.getTranslation()); // Server lang
+            LOGGER.info(LangKey.MESSAGE_FAIL_TO_PLACE_GRAVE.getText()); // Server lang
             return;
         }
         deathHandler.setLastDeathLocation(player, new Location(spawnPos.x, spawnPos.y + 1, spawnPos.z, spawnPos.dim));
@@ -633,10 +633,10 @@ public class EventHandler {
         if (needAccess && ConfigTombstone.player_death.pvpMode.get() && event.getSource() != null && event.getSource().getTrueSource() instanceof PlayerEntity) {
             needAccess = false;
         }
-        player.sendMessage((hasGrave ? LangKey.MESSAGE_EXISTING_GRAVE : LangKey.MESSAGE_NEW_GRAVE).getTranslationWithStyle(StyleType.MESSAGE_SPECIAL,
-                LangKey.MESSAGE_JOURNEYMAP.getTranslationWithStyle(StyleType.TOOLTIP_DESC, LangKey.MESSAGE_LAST_GRAVE.getTranslation(), spawnPos.x, spawnPos.y, spawnPos.z, spawnPos.dim),
+        (hasGrave ? LangKey.MESSAGE_EXISTING_GRAVE : LangKey.MESSAGE_NEW_GRAVE).sendMessage(player, StyleType.MESSAGE_SPECIAL,
+                LangKey.MESSAGE_JOURNEYMAP.getText(StyleType.TOOLTIP_DESC, LangKey.MESSAGE_LAST_GRAVE.getText(), spawnPos.x, spawnPos.y, spawnPos.z, spawnPos.dim),
                 LangKey.createComponentTranslationWithStyle(player, needAccess ? StyleType.COLOR_OFF : StyleType.COLOR_ON, needAccess ? LangKey.MESSAGE_LOCKED : LangKey.MESSAGE_UNLOCKED, needAccess && SharedConfigTombstone.player_death.decayTime.get() > 0 ? SharedConfigTombstone.player_death.decayTime.get() + " min" : "")
-        ));
+        );
         if (ConfigTombstone.player_death.playerGraveAccess.get()) {
             if (hasGrave) {
                 ItemStack key = ItemStack.EMPTY;
@@ -871,7 +871,7 @@ public class EventHandler {
     public static void onPlayerInteractEntity(PlayerInteractEvent.EntityInteract event) {
         ItemStack mainHandStack;
         if (event.getHand() == Hand.MAIN_HAND && EntityHelper.isValidPlayer(event.getPlayer()) && (mainHandStack = event.getPlayer().getHeldItemMainhand()).getItem() == ModItems.bone_needle && event.getTarget() instanceof LivingEntity) {
-            if (mainHandStack.interactWithEntity(event.getPlayer(), (LivingEntity) event.getTarget(), event.getHand())) {
+            if (mainHandStack.interactWithEntity(event.getPlayer(), (LivingEntity) event.getTarget(), event.getHand()).isSuccess()) {
                 event.setCancellationResult(ActionResultType.SUCCESS);
                 event.setCanceled(true);
             }

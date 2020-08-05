@@ -17,6 +17,8 @@ import java.util.stream.IntStream;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3i;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.tuple.Pair;
@@ -69,8 +71,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.IWorld;
@@ -79,12 +79,10 @@ import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkSection;
 import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.LogicalSide;
@@ -402,22 +400,22 @@ public class Helper {
     }
 
     public static void handleAprilFoolsDayGrave(World world, BlockPos pos) {
-        final Vec3d centerVec = new Vec3d(pos).add(0.5d, 1d, 0.5d);
+        final Vector3d centerVec = new Vector3d(pos.getX(), pos.getY(), pos.getZ()).add(0.5d, 1d, 0.5d);
         final PlayerEntity closestPlayer = world.getClosestPlayer(centerVec.x, centerVec.y, centerVec.z, 20d, false);
         if (closestPlayer != null) {
             final SnowballEntity snowballentity = new SnowballEntity(world, centerVec.x, centerVec.y, centerVec.z);
             if (canSeeEntity(closestPlayer, centerVec)) {
                 snowballentity.setItem(new ItemStack(Items.BONE));
                 snowballentity.getPersistentData().putBoolean(APRIL_FOOLS_DAY_SLOWNESS_NBT_BOOL, true);
-                Vec3d vec = closestPlayer.getPositionVec().add(0d, closestPlayer.getEyeHeight(), 0d).subtract(snowballentity.getPositionVec());
+                Vector3d vec = closestPlayer.getPositionVec().add(0d, closestPlayer.getEyeHeight(), 0d).subtract(snowballentity.getPositionVec());
                 snowballentity.shoot(vec.x, vec.y, vec.z, 1.5f, 1f);
                 world.addEntity(snowballentity);
             }
         }
     }
 
-    public static boolean canSeeEntity(Entity entity, Vec3d vec3d) {
-        Vec3d vec3d1 = entity.getPositionVec().add(0d, entity.getEyeHeight(), 0d);
+    public static boolean canSeeEntity(Entity entity, Vector3d vec3d) {
+        Vector3d vec3d1 = entity.getPositionVec().add(0d, entity.getEyeHeight(), 0d);
         return entity.world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d1, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, entity)).getType() == RayTraceResult.Type.MISS;
     }
 
@@ -644,15 +642,15 @@ public class Helper {
         return entity instanceof TameableEntity || entity instanceof AbstractHorseEntity;
     }
 
-    public static double getDistance(Vec3i vec1, Vec3i vec2) {
+    public static double getDistance(Vector3i vec1, Vector3i vec2) {
         return Math.sqrt(getDistanceSq(vec1, vec2));
     }
 
-    public static double getDistanceSq(Vec3i vec1, Vec3i vec2) {
+    public static double getDistanceSq(Vector3i vec1, Vector3i vec2) {
         return getDistanceSq(vec1, vec2.getX(), vec2.getY(), vec2.getZ());
     }
 
-    public static double getDistanceSq(Vec3i vec1, int x2, int y2, int z2) {
+    public static double getDistanceSq(Vector3i vec1, int x2, int y2, int z2) {
         return vec1.distanceSq(x2, y2, z2, false);
     }
 

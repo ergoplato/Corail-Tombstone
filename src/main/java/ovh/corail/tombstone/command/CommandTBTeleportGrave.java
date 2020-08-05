@@ -6,8 +6,8 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.world.dimension.DimensionType;
 import ovh.corail.tombstone.helper.DeathHandler;
 import ovh.corail.tombstone.helper.EntityHelper;
 import ovh.corail.tombstone.helper.Helper;
@@ -66,9 +66,9 @@ public class CommandTBTeleportGrave extends TombstoneCommand {
         checkValidPos(sender.getServer().getWorld(dimensionType), lastGrave.getPos());
         Entity newEntity = Helper.teleportToGrave(player, lastGrave);
         if (EntityHelper.isValidPlayer(newEntity)) {
-            newEntity.sendMessage(LangKey.MESSAGE_TELEPORT_SUCCESS.getTranslationWithStyle(StyleType.MESSAGE_SPELL));
+            LangKey.MESSAGE_TELEPORT_SUCCESS.sendMessage((PlayerEntity) newEntity, StyleType.MESSAGE_SPELL);
         }
-        sendMessage(sender, LangKey.MESSAGE_TELEPORT_TARGET_TO_LOCATION.getTranslation(newEntity.getName(), LangKey.MESSAGE_HERE.getTranslation(), lastGrave.x, lastGrave.y, lastGrave.z, lastGrave.dim), false);
+        sendMessage(sender, LangKey.MESSAGE_TELEPORT_TARGET_TO_LOCATION.getText(newEntity.getName(), LangKey.MESSAGE_HERE.getText(), lastGrave.x, lastGrave.y, lastGrave.z, lastGrave.dim), false);
         return 1;
     }
 }

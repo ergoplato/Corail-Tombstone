@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.util.Util;
 import net.minecraftforge.items.CapabilityItemHandler;
 import ovh.corail.tombstone.ModTombstone;
 import ovh.corail.tombstone.helper.LangKey;
@@ -77,9 +77,9 @@ public class CommandTBReviveFamiliar extends TombstoneCommand {
         }
         boolean success = ModItems.familiar_receptacle.revive(player, player.getPosition(), receptacle);
         LangKey langKey = success ? LangKey.MESSAGE_BRING_BACK_TO_LIFE : LangKey.MESSAGE_CANT_REVIVE_FAMILIAR;
-        player.sendMessage(langKey.getTranslationWithStyle(success ? StyleType.MESSAGE_SPELL : StyleType.COLOR_OFF, LangKey.MESSAGE_YOUR_FAMILIAR.getTranslation()));
+        player.sendMessage(langKey.getText(success ? StyleType.MESSAGE_SPELL : StyleType.COLOR_OFF, LangKey.MESSAGE_YOUR_FAMILIAR.getText()), Util.DUMMY_UUID);
         if (!player.equals(sender.getEntity())) {
-            sendMessage(sender, langKey.getTranslationWithStyle(success ? StyleType.MESSAGE_SPELL : StyleType.COLOR_OFF, LangKey.MESSAGE_FAMILIAR_OF.getTranslation(player.getName())), false);
+            sendMessage(sender, langKey.getText(success ? StyleType.MESSAGE_SPELL : StyleType.COLOR_OFF, LangKey.MESSAGE_FAMILIAR_OF.getText(player.getName())), false);
         }
         receptacle.shrink(1);
         player.container.detectAndSendChanges();
