@@ -65,7 +65,7 @@ public class ItemAnkhOfPray extends ItemGeneric implements ISoulConsumer {
 
     @Override
     public ITextComponent getDisplayName(ItemStack stack) {
-        return super.getDisplayName(stack).setStyle(StyleType.MESSAGE_SPECIAL);
+        return super.getDisplayName(stack).copyRaw().setStyle(StyleType.MESSAGE_SPECIAL);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ItemAnkhOfPray extends ItemGeneric implements ISoulConsumer {
                         int cd = CooldownHandler.INSTANCE.getCooldown(player, CooldownType.NEXT_PRAY) / 20;
                         if (cd > 0) {
                             long hour = cd / 3600;
-                            StringBuilder timeString = new StringBuilder(StyleType.TOOLTIP_DESC.getFormattingCode()).append("[");
+                            StringBuilder timeString = new StringBuilder(Helper.getFormattingCode(StyleType.TOOLTIP_DESC)).append("[");
                             if (hour > 0) {
                                 cd -= hour * 3600;
                                 timeString.append(String.format("%02d", hour)).append(":");

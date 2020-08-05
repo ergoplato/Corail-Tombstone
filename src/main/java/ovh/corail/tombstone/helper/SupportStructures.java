@@ -100,7 +100,7 @@ public enum SupportStructures {
     }
 
     public static boolean hasStructureInWorld(@Nullable ServerWorld world, Structure<?> structure) {
-        return world != null && world.getWorldInfo().isMapFeaturesEnabled() && world.getChunkProvider().getChunkGenerator().getBiomeProvider().hasStructure(structure);
+        return world != null && world.getChunkProvider().getChunkGenerator().getBiomeProvider().hasStructure(structure);
     }
 
     public static Structure<?> getStructure(String name) {

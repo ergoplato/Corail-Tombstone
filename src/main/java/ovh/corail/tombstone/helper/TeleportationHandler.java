@@ -13,17 +13,17 @@ import java.util.LinkedList;
 import java.util.UUID;
 
 public class TeleportationHandler {
-    public static Entity teleportEntity(Entity entity, DimensionType targetDimType, double xCoord, double yCoord, double zCoord) {
-        return teleportEntity(entity, targetDimType, xCoord, yCoord, zCoord, entity.rotationYaw, entity.rotationPitch);
+    public static Entity teleportEntity(Entity entity, ServerWorld targetWorld, double xCoord, double yCoord, double zCoord) {
+        return teleportEntity(entity, targetWorld, xCoord, yCoord, zCoord, entity.rotationYaw, entity.rotationPitch);
     }
 
-    public static Entity teleportEntity(Entity entity, DimensionType targetDimType, double xCoord, double yCoord, double zCoord, float yaw, float pitch) {
+    public static Entity teleportEntity(Entity entity, ServerWorld targetWorld, double xCoord, double yCoord, double zCoord, float yaw, float pitch) {
         if (!entity.world.isRemote && entity.isAlive()) {
             MinecraftServer server = entity.getServer();
             if (server != null) {
-                DimensionType sourceDimType = entity.world.dimension.getType();
+                ServerWorld sourceWorld = (ServerWorld) entity.world;
                 if (!entity.isBeingRidden() && !entity.isPassenger()) {
-                    return teleportEntity(entity, server, sourceDimType, targetDimType, xCoord, yCoord, zCoord, yaw, pitch);
+                    return teleportEntity(entity, server, sourceWorld, targetWorld, xCoord, yCoord, zCoord, yaw, pitch);
                 }
                 Entity lowestRidingEntity = entity.getLowestRidingEntity();
                 PassengerHelper passengerHelper = new PassengerHelper(lowestRidingEntity);
@@ -31,7 +31,7 @@ public class TeleportationHandler {
                 if (rider == null) {
                     return entity;
                 }
-                passengerHelper.teleport(server, sourceDimType, targetDimType, xCoord, yCoord, zCoord, yaw, pitch);
+                passengerHelper.teleport(server, sourceWorld, targetWorld, xCoord, yCoord, zCoord, yaw, pitch);
                 passengerHelper.remountRiders();
                 passengerHelper.updateClients();
 
@@ -41,18 +41,18 @@ public class TeleportationHandler {
         return entity;
     }
 
-    private static Entity teleportEntity(Entity entity, MinecraftServer server, DimensionType sourceDim, DimensionType targetDim, double xCoord, double yCoord, double zCoord, float yaw, float pitch) {
+    private static Entity teleportEntity(Entity entity, MinecraftServer server, ServerWorld sourceWorld, ServerWorld targetWorld, double xCoord, double yCoord, double zCoord, float yaw, float pitch) {
         if (entity == null || !entity.isAlive()) {
             return entity;
         }
-        boolean interDimensional = sourceDim != targetDim;
+        boolean interDimensional = !sourceWorld.func_234923_W_().equals(targetWorld.func_234923_W_());
         boolean isPlayer = entity instanceof ServerPlayerEntity;
         if (interDimensional) {
-            if (ForgeHooks.onTravelToDimension(entity, targetDim)) {
+            if (ForgeHooks.onTravelToDimension(entity, targetWorld.func_234923_W_())) {
                 if (isPlayer) {
-                    return teleportPlayerInterdimensional((ServerPlayerEntity) entity, server, server.getWorld(targetDim), xCoord, yCoord, zCoord, yaw, pitch);
+                    return teleportPlayerInterdimensional((ServerPlayerEntity) entity, server, targetWorld, xCoord, yCoord, zCoord, yaw, pitch);
                 } else {
-                    return teleportEntityInterdimensional(entity, server.getWorld(sourceDim), server.getWorld(targetDim), xCoord, yCoord, zCoord, yaw, pitch);
+                    return teleportEntityInterdimensional(entity, sourceWorld, targetWorld, xCoord, yCoord, zCoord, yaw, pitch);
                 }
             }
         } else if (isPlayer) {
@@ -73,11 +73,8 @@ public class TeleportationHandler {
     }
 
     private static Entity teleportEntityInterdimensional(Entity entity, ServerWorld sourceWorld, ServerWorld targetWorld, double xCoord, double yCoord, double zCoord, float yaw, float pitch) {
-        DimensionType targetDim = Helper.getDimensionType(targetWorld);
         Vector3d motion = entity.getMotion();
-        entity.dimension = targetDim;
         entity.detach();
-
         Entity newEntity = entity.getType().create(targetWorld);
         if (newEntity != null) {
             CompoundNBT nbt = new CompoundNBT();
@@ -114,11 +111,11 @@ public class TeleportationHandler {
             }
         }
 
-        void teleport(MinecraftServer server, DimensionType sourceDim, DimensionType targetDim, double xCoord, double yCoord, double zCoord, float yaw, float pitch) {
+        void teleport(MinecraftServer server, ServerWorld sourceWorld, ServerWorld targetWorld, double xCoord, double yCoord, double zCoord, float yaw, float pitch) {
             entity.removePassengers();
-            entity = teleportEntity(entity, server, sourceDim, targetDim, xCoord, yCoord, zCoord, yaw, pitch);
+            entity = teleportEntity(entity, server, sourceWorld, targetWorld, xCoord, yCoord, zCoord, yaw, pitch);
             for (PassengerHelper passenger : passengers) {
-                passenger.teleport(server, sourceDim, targetDim, xCoord, yCoord, zCoord, yaw, pitch);
+                passenger.teleport(server, sourceWorld, targetWorld, xCoord, yCoord, zCoord, yaw, pitch);
             }
         }
 

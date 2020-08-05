@@ -43,7 +43,7 @@ public class ItemTabletOfAssistance extends ItemTablet {
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> list, ITooltipFlag flag) {
         if (list.size() > 0) {
-            list.set(0, list.get(0).setStyle(StyleType.MESSAGE_SPECIAL));
+            list.set(0, list.get(0).copyRaw().setStyle(StyleType.MESSAGE_SPECIAL));
         }
         if (Helper.canShowTooltip(world, stack)) {
             if (!isEnchanted(stack)) {
@@ -53,7 +53,7 @@ public class ItemTabletOfAssistance extends ItemTablet {
                 String engraved_name = getEngravedName(stack);
                 if (engraved_name.isEmpty()) {
                     addItemDesc(list);
-                    addItemUse(list, "2", StyleType.TOOLTIP_ITEM.getFormattingCode() + "[" + I18n.format(ModItems.grave_dust.getTranslationKey(stack)).toLowerCase() + "]");
+                    addItemUse(list, "2", Helper.getFormattingCode(StyleType.TOOLTIP_ITEM) + "[" + I18n.format(ModItems.grave_dust.getTranslationKey(stack)).toLowerCase() + "]");
                 } else {
                     addInfo(list, LangKey.MESSAGE_ENGRAVED, '"' + engraved_name + '"');
                     addItemUse(list, "3");
@@ -111,7 +111,7 @@ public class ItemTabletOfAssistance extends ItemTablet {
             LangKey.MESSAGE_TELEPORT_FAILED.sendMessage(player);
             return false;
         }
-        if (receiver.dimension != player.dimension && !ConfigTombstone.general.teleportDim.get()) {
+        if (!receiver.func_241141_L_().equals(player.func_241141_L_()) && !ConfigTombstone.general.teleportDim.get()) {
             LangKey.MESSAGE_TELEPORT_SAME_DIMENSION.sendMessage(player);
             return false;
         }

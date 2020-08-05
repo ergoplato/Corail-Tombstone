@@ -5,9 +5,11 @@ import net.minecraft.command.CommandException;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.event.ClickEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -231,5 +233,11 @@ public enum LangKey {
     @OnlyIn(Dist.CLIENT)
     public String getClientTranslationWithStyle(Style style, Object... params) {
         return Helper.getFormattingCode(style) + getClientTranslation(params);
+    }
+
+    public static ITextComponent createComponentCommand(PlayerEntity sender, String command, LangKey langKey, Object... params) {
+        ITextComponent compo = langKey.getText(StyleType.COLOR_ON, params);
+        compo.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
+        return compo;
     }
 }

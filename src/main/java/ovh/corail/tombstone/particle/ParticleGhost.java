@@ -5,9 +5,11 @@ import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import ovh.corail.tombstone.ModTombstone;
@@ -28,7 +30,12 @@ public class ParticleGhost extends TransparentParticle {
         this.canCollide = false;
         multiplyParticleScaleBy(8f);
         setColor(1f, 1f, 1f);
-        ((ClientWorld) world).addLightning(new LightningBoltEntity(world, x, y, z, true));
+        LightningBoltEntity bolt = EntityType.LIGHTNING_BOLT.create(this.world);
+        if (bolt != null) {
+            bolt.moveForced(new Vector3d(x, y, z));
+            bolt.setEffectOnly(true);
+            this.world.addEntity(bolt);
+        }
         world.playSound(x, y, z, Helper.getRandom(0, 3) == 0 ? ModSounds.GHOST_LAUGH : ModSounds.GHOST_HOWL, SoundCategory.VOICE, 1f, 1f, true);
         this.spriteSet = spriteSet;
         selectSpriteWithAge(this.spriteSet);

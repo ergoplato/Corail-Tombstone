@@ -229,7 +229,7 @@ public class Helper {
         BlockPos startingPos = pos;
         for (int nbTry = 0; nbTry < 5; nbTry++) {
             startingPos = getCloserValidPos(world, startingPos.add(nbTry * random.nextGaussian() * 2000, 0d, nbTry * random.nextGaussian() * 2000));
-            final BlockPos foundPos = world.findNearestStructure(SupportStructures.getStructureNameForSearch(structureName), startingPos, 100, unexplored);
+            final BlockPos foundPos = world.func_241117_a_(SupportStructures.getStructure(structureName), startingPos, 100, unexplored);
             if (foundPos != null && isValidPos(world, foundPos)) {
                 return new Location(foundPos.getX(), y, foundPos.getZ(), world);
             }
@@ -350,7 +350,7 @@ public class Helper {
             if (state.getOpacity(world, pos) != oldOpacity || state.getLightValue(world, pos) != oldLight || state.isTransparent() || blockstate.isTransparent()) {
                 world.getChunkProvider().getLightManager().checkBlock(pos);
             }
-            world.markAndNotifyBlock(pos, chunk, blockstate, state, 3);
+            world.markAndNotifyBlock(pos, chunk, blockstate, state, 3, 512);
         }
     }
 

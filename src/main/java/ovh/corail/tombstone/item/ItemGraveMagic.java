@@ -49,7 +49,7 @@ public abstract class ItemGraveMagic extends ItemGeneric implements ISoulConsume
     @Override
     public ITextComponent getDisplayName(ItemStack stack) {
         ITextComponent name = super.getDisplayName(stack);
-        return (isAncient(stack) ? LangKey.MESSAGE_ANCIENT_ITEM.getText(name) : isEnchanted(stack) ? LangKey.MESSAGE_ENCHANTED_ITEM.getText(name) : name).setStyle(StyleType.MESSAGE_SPECIAL);
+        return (isAncient(stack) ? LangKey.MESSAGE_ANCIENT_ITEM.getText(name) : isEnchanted(stack) ? LangKey.MESSAGE_ENCHANTED_ITEM.getText(name) : name.copyRaw()).setStyle(StyleType.MESSAGE_SPECIAL);
     }
 
     public boolean isAncient(ItemStack stack) {

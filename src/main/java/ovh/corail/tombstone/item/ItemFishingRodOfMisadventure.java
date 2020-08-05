@@ -44,7 +44,7 @@ public class ItemFishingRodOfMisadventure extends FishingRodItem implements ISou
     @Override
     public ITextComponent getDisplayName(ItemStack stack) {
         ITextComponent name = super.getDisplayName(stack);
-        return (isEnchanted(stack) ? LangKey.MESSAGE_ENCHANTED_ITEM.getText(name) : name).setStyle(StyleType.MESSAGE_SPECIAL);
+        return (isEnchanted(stack) ? LangKey.MESSAGE_ENCHANTED_ITEM.getText(name) : name.copyRaw()).setStyle(StyleType.MESSAGE_SPECIAL);
     }
 
     public String getSimpleName() {

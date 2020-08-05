@@ -34,6 +34,7 @@ import net.minecraft.util.concurrent.ThreadTaskExecutor;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.village.VillageSiege;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
@@ -305,7 +306,7 @@ public class EventHandler {
                 }
             }
             if (ConfigTombstone.recovery.backupOnDeath.get() && !event.getEntityLiving().isSpectator()) {
-                CommandTBRecovery.savePlayer((ServerPlayerEntity) event.getEntityLiving(), success -> LOGGER.info((success ? LangKey.MESSAGE_RECOVERY_SAVE_PLAYER_SUCCESS : LangKey.MESSAGE_RECOVERY_SAVE_PLAYER_FAILED).getTranslation(event.getEntityLiving().getName()).getString()));
+                CommandTBRecovery.savePlayer((ServerPlayerEntity) event.getEntityLiving(), success -> LOGGER.info((success ? LangKey.MESSAGE_RECOVERY_SAVE_PLAYER_SUCCESS : LangKey.MESSAGE_RECOVERY_SAVE_PLAYER_FAILED).getText(event.getEntityLiving().getName()).getString()));
             }
         }
     }
@@ -660,7 +661,7 @@ public class EventHandler {
         }
         (hasGrave ? LangKey.MESSAGE_EXISTING_GRAVE : LangKey.MESSAGE_NEW_GRAVE).sendMessage(player, StyleType.MESSAGE_SPECIAL,
                 LangKey.MESSAGE_JOURNEYMAP.getText(StyleType.TOOLTIP_DESC, LangKey.MESSAGE_LAST_GRAVE.getText(), spawnPos.x, spawnPos.y, spawnPos.z, spawnPos.dim),
-                LangKey.createComponentTranslationWithStyle(player, needAccess ? StyleType.COLOR_OFF : StyleType.COLOR_ON, needAccess ? LangKey.MESSAGE_LOCKED : LangKey.MESSAGE_UNLOCKED, needAccess && SharedConfigTombstone.player_death.decayTime.get() > 0 ? SharedConfigTombstone.player_death.decayTime.get() + " min" : "")
+                (needAccess ? LangKey.MESSAGE_LOCKED : LangKey.MESSAGE_UNLOCKED).getText(needAccess && SharedConfigTombstone.player_death.decayTime.get() > 0 ? SharedConfigTombstone.player_death.decayTime.get() + " min" : "").setStyle(needAccess ? StyleType.COLOR_OFF : StyleType.COLOR_ON)
         );
         if (ConfigTombstone.player_death.playerGraveAccess.get()) {
             if (hasGrave) {

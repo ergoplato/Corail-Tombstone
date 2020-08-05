@@ -101,7 +101,7 @@ public class ItemTabletOfRecall extends ItemTablet {
         if (!world.isRemote && isEnchanted(stack) && TimeHelper.atInterval(player.ticksExisted, 20)) {
             setTombPos(stack, new Location(gravePos, world));
             player.getCooldownTracker().setCooldown(this, 100);
-            player.sendMessage(getEnchantSuccessMessage(player).setStyle(StyleType.MESSAGE_NORMAL), Util.DUMMY_UUID);
+            player.sendMessage(getEnchantSuccessMessage(player).copyRaw().setStyle(StyleType.MESSAGE_NORMAL), Util.DUMMY_UUID);
         }
     }
 
