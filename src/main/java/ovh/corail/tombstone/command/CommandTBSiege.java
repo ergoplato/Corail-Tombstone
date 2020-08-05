@@ -11,9 +11,9 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.server.ServerWorld;
 import ovh.corail.tombstone.config.ConfigTombstone;
 import ovh.corail.tombstone.helper.LangKey;
-import ovh.corail.tombstone.helper.VillageSiegeHandler.CustomVillageSiege;
+import ovh.corail.tombstone.spawner.CustomVillageSiege;
 
-import static ovh.corail.tombstone.helper.VillageSiegeHandler.SiegeState.SIEGE_START;
+import static ovh.corail.tombstone.spawner.CustomVillageSiege.SiegeState.SIEGE_START;
 
 public class CommandTBSiege extends TombstoneCommand {
 

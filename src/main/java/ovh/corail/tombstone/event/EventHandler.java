@@ -1,5 +1,6 @@
 package ovh.corail.tombstone.event;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -33,9 +34,13 @@ import net.minecraft.util.concurrent.ThreadTaskExecutor;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.village.VillageSiege;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.spawner.ISpecialSpawner;
+import net.minecraft.world.spawner.PhantomSpawner;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
@@ -82,6 +87,8 @@ import ovh.corail.tombstone.compatibility.CompatibilityMinecolonies;
 import ovh.corail.tombstone.config.ConfigTombstone;
 import ovh.corail.tombstone.config.SharedConfigTombstone;
 import ovh.corail.tombstone.helper.CooldownHandler;
+import ovh.corail.tombstone.spawner.CustomPhantomSpawner;
+import ovh.corail.tombstone.spawner.CustomVillageSiege;
 import ovh.corail.tombstone.helper.DeathHandler;
 import ovh.corail.tombstone.helper.DummyTargetEntity;
 import ovh.corail.tombstone.helper.EffectHelper;
@@ -91,12 +98,10 @@ import ovh.corail.tombstone.helper.InventoryHelper;
 import ovh.corail.tombstone.helper.LangKey;
 import ovh.corail.tombstone.helper.Location;
 import ovh.corail.tombstone.helper.LootHelper;
-import ovh.corail.tombstone.helper.PhantomSpawnerHandler;
 import ovh.corail.tombstone.helper.SpawnHelper;
 import ovh.corail.tombstone.helper.SpawnProtectionHandler;
 import ovh.corail.tombstone.helper.StyleType;
 import ovh.corail.tombstone.helper.TimeHelper;
-import ovh.corail.tombstone.helper.VillageSiegeHandler;
 import ovh.corail.tombstone.item.ItemGraveMagic;
 import ovh.corail.tombstone.item.ItemVoodooPoppet;
 import ovh.corail.tombstone.network.PacketHandler;
@@ -206,10 +211,26 @@ public class EventHandler {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onWorldLoad(WorldEvent.Load event) {
         if (!event.getWorld().isRemote()) {
-            // handle village siege
-            VillageSiegeHandler.instance.checkWorld((ServerWorld) event.getWorld());
-            // handle phantom spawner
-            PhantomSpawnerHandler.instance.checkWorld((ServerWorld) event.getWorld());
+            ServerWorld world = (ServerWorld) event.getWorld();
+            if (!world.func_234922_V_().equals(DimensionType.OVERWORLD)) {
+                return;
+            }
+            ImmutableList.Builder<ISpecialSpawner> builder = new ImmutableList.Builder<>();
+            boolean valid = false;
+            for (ISpecialSpawner spawner : world.field_241104_N_) {
+                if (spawner instanceof PhantomSpawner && !(spawner instanceof CustomPhantomSpawner)) {
+                    builder.add(new CustomPhantomSpawner());
+                    valid = true;
+                } else if (spawner instanceof VillageSiege && !(spawner instanceof CustomVillageSiege)) {
+                    builder.add(new CustomVillageSiege());
+                    valid = true;
+                } else {
+                    builder.add(spawner);
+                }
+            }
+            if (valid) {
+                world.field_241104_N_ = builder.build();
+            }
         }
     }
 
