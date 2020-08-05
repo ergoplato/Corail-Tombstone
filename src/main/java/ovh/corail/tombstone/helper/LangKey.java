@@ -1,5 +1,6 @@
 package ovh.corail.tombstone.helper;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandException;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Util;
@@ -7,8 +8,12 @@ import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.UUID;
+
+import static ovh.corail.tombstone.ModTombstone.MOD_ID;
 
 public enum LangKey {
 	
@@ -171,61 +176,60 @@ public enum LangKey {
     private final String key;
 
     LangKey(String key) {
-    	
         this.key = key;
     }
     
     public String asLog() {
-    	
     	return this.getText().getUnformattedComponentText();
     }
     
     public IFormattableTextComponent getText(TextFormatting format, Object... args) {
-    	
     	return this.getText(args).mergeStyle(format);
     }
     
     public IFormattableTextComponent getText(Style style, Object... args) {
-    	
     	return this.getText(args).mergeStyle(style);
     }
     
     public IFormattableTextComponent getText(Object... args) {
-    	
     	return args.length > 0 ? new TranslationTextComponent(this.key, args) : new TranslationTextComponent(this.key);
     }
     
     public void sendMessage(PlayerEntity player, TextFormatting format, Object... args) {
-    	
     	this.sendMessage(player, Util.DUMMY_UUID, format, args);
     }
     
     public void sendMessage(PlayerEntity player, Style style, Object... args) {
-    	
     	this.sendMessage(player, Util.DUMMY_UUID, style, args);
     }
     
     public void sendMessage(PlayerEntity player, Object... args) {
-    	
     	this.sendMessage(player, Util.DUMMY_UUID, args);
     }
     
     public void sendMessage(PlayerEntity player, UUID senderId, TextFormatting format, Object... args) {
-    	
     	player.sendMessage(this.getText(format, args), senderId);
     }
     
     public void sendMessage(PlayerEntity player, UUID senderId, Style style, Object... args) {
-    	
     	player.sendMessage(this.getText(style, args), senderId);
     }
     
     public void sendMessage(PlayerEntity player, UUID senderId, Object... args) {
-    	
     	player.sendMessage(this.getText(args), senderId);
     }
 
     public CommandException asCommandException(Object... params) {
         return new CommandException(getText(params));
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public String getClientTranslation(Object... params) {
+        return I18n.format(MOD_ID + "." + this.key, params);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public String getClientTranslationWithStyle(Style style, Object... params) {
+        return Helper.getFormattingCode(style) + getClientTranslation(params);
     }
 }

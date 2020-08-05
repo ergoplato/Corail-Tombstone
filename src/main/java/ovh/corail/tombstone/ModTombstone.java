@@ -60,7 +60,8 @@ public class ModTombstone {
     public static final IProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
     
     public static LootConditionType OPEN_WATER;
-    
+
+    @SuppressWarnings("UnstableApiUsage")
     public ModTombstone() {
         TombstoneAPIProps.COOLDOWN_HANDLER = CooldownHandler.INSTANCE;
         Reflection.initialize(PerkRegistry.class, PacketHandler.class, ModTriggers.class, ModTabs.class);
@@ -110,7 +111,6 @@ public class ModTombstone {
         if (SupportMods.COSMETIC_ARMOR.isLoaded()) {
             MinecraftForge.EVENT_BUS.register(CompatibilityCosmeticArmor.instance);
         }
-        Helper.initCommands(event.getCommandDispatcher());
         MinecraftForge.EVENT_BUS.register(new CallbackHandler());
     }
 
@@ -120,5 +120,5 @@ public class ModTombstone {
     }
 
     @SuppressWarnings("deprecation")
-    public static final EnchantmentType TYPE_TOMBSTONE_ALL = Helper.addEnchantmentType("type_tombstone_all", p -> p != null && (p.getItemEnchantability() > 0 || p.getMaxStackSize() == 1), EnchantmentType.ALL);
+    public static final EnchantmentType TYPE_TOMBSTONE_ALL = EnchantmentType.create("type_tombstone_all", p -> p != null && (p.getItemEnchantability() > 0 || p.getMaxStackSize() == 1));
 }

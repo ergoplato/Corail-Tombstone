@@ -1,35 +1,10 @@
 package ovh.corail.tombstone.helper;
 
-import static ovh.corail.tombstone.ModTombstone.MOD_ID;
-
-import java.time.LocalDate;
-import java.time.temporal.ChronoField;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.IntStream;
-
-import javax.annotation.Nullable;
-
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3i;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.apache.commons.lang3.tuple.Pair;
-import org.lwjgl.opengl.GL11;
-
 import com.google.common.collect.Sets;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.brigadier.CommandDispatcher;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -46,7 +21,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.command.CommandSource;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -56,7 +30,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.SnowballEntity;
 import net.minecraft.item.EnchantedBookItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -71,7 +44,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.Color;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -89,6 +67,10 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.network.NetworkEvent;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.opengl.GL11;
 import ovh.corail.tombstone.api.capability.Perk;
 import ovh.corail.tombstone.api.magic.ISoulConsumer;
 import ovh.corail.tombstone.command.CommandTBAcceptTeleport;
@@ -110,6 +92,22 @@ import ovh.corail.tombstone.config.ConfigTombstone;
 import ovh.corail.tombstone.config.SharedConfigTombstone;
 import ovh.corail.tombstone.registry.ModEnchantments;
 import ovh.corail.tombstone.registry.ModTriggers;
+
+import javax.annotation.Nullable;
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Random;
+import java.util.Set;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static ovh.corail.tombstone.ModTombstone.MOD_ID;
 
 @SuppressWarnings({ "WeakerAccess", "unused" })
 public class Helper {
@@ -598,11 +596,6 @@ public class Helper {
         bufferbuilder.pos(x, y, zLevel).color(colorArray[0], colorArray[1], colorArray[2], colorArray[3]).endVertex();
     }
 
-    public static EnchantmentType addEnchantmentType(String name, Predicate<Item> predic, EnchantmentType fallback) {
-        EnchantmentType enchantType = EnchantmentType.create(name, predic);
-        return enchantType == null ? fallback : enchantType;
-    }
-
     public static Set<Enchantment> getTombstoneEnchantments(ItemStack stack) {
         boolean isEnchantedBook = stack.getItem() == Items.ENCHANTED_BOOK;
         if (!isEnchantedBook && SharedConfigTombstone.enchantments.enableEnchantmentSoulbound.get() && SharedConfigTombstone.enchantments.enableEnchantmentShadowStep.get() && SharedConfigTombstone.enchantments.enableEnchantmentMagicSiphon.get() && SharedConfigTombstone.enchantments.enableEnchantmentPlagueBringer.get()) {
@@ -660,6 +653,36 @@ public class Helper {
 
     public static boolean isPacketToServer(NetworkEvent.Context ctx) {
         return ctx.getDirection().getOriginationSide() == LogicalSide.CLIENT && ctx.getDirection().getReceptionSide() == LogicalSide.SERVER;
+    }
+
+    public static String getFormattingCode(Style style) {
+        if (style.isEmpty()) {
+            return "";
+        }
+        StringBuilder stringbuilder = new StringBuilder();
+        if (style.getColor() != null) {
+            fromColor(style.getColor()).ifPresent(stringbuilder::append);
+        }
+        if (style.getBold()) {
+            stringbuilder.append(TextFormatting.BOLD);
+        }
+        if (style.getItalic()) {
+            stringbuilder.append(TextFormatting.ITALIC);
+        }
+        if (style.getUnderlined()) {
+            stringbuilder.append(TextFormatting.UNDERLINE);
+        }
+        if (style.getObfuscated()) {
+            stringbuilder.append(TextFormatting.OBFUSCATED);
+        }
+        if (style.getStrikethrough()) {
+            stringbuilder.append(TextFormatting.STRIKETHROUGH);
+        }
+        return stringbuilder.toString();
+    }
+
+    public static Optional<TextFormatting> fromColor(Color color) {
+        return Stream.of(TextFormatting.values()).filter(f -> f.getColor() != null && f.getColor().equals(color.field_240740_c_)).findFirst();
     }
 
     @SuppressWarnings("ConstantConditions")

@@ -5,8 +5,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.SSetPassengersPacket;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 
@@ -75,7 +74,7 @@ public class TeleportationHandler {
 
     private static Entity teleportEntityInterdimensional(Entity entity, ServerWorld sourceWorld, ServerWorld targetWorld, double xCoord, double yCoord, double zCoord, float yaw, float pitch) {
         DimensionType targetDim = Helper.getDimensionType(targetWorld);
-        Vec3d motion = entity.getMotion();
+        Vector3d motion = entity.getMotion();
         entity.dimension = targetDim;
         entity.detach();
 
