@@ -15,12 +15,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.dimension.DimensionType;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.registries.GameData;
 import ovh.corail.tombstone.helper.CallbackHandler;
 import ovh.corail.tombstone.helper.EntityHelper;
@@ -94,7 +93,7 @@ abstract class TombstoneCommand {
         return Registry.BIOME.getValue(rl).orElseThrow(LangKey.MESSAGE_INVALID_BIOME::asCommandException);
     }
 
-    protected void sendMessage(CommandSource source, ITextComponent message, boolean allowLogging) {
+    protected void sendMessage(CommandSource source, IFormattableTextComponent message, boolean allowLogging) {
         source.sendFeedback(message.setStyle(StyleType.TOOLTIP_DESC), allowLogging);
     }
 
@@ -103,11 +102,11 @@ abstract class TombstoneCommand {
     }
 
     private static CommandExceptionType createCommandExceptionType(LangKey langKey) {
-        return new SimpleCommandExceptionType(langKey.getTranslation());
+        return new SimpleCommandExceptionType(langKey.getText());
     }
 
     private static CommandExceptionType createDynamicCommandExceptionType(LangKey langKey) {
-        return new DynamicCommandExceptionType(langKey::getTranslation);
+        return new DynamicCommandExceptionType(langKey::getText);
     }
 
     static final String PLAYER_PARAM = "player";

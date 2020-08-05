@@ -19,7 +19,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.concurrent.ThreadTaskExecutor;
-import net.minecraft.world.dimension.DimensionType;
 import org.apache.commons.lang3.tuple.Pair;
 import ovh.corail.tombstone.ModTombstone;
 import ovh.corail.tombstone.config.ConfigTombstone;
@@ -62,13 +61,13 @@ public class CommandTBRecovery extends TombstoneCommand {
     LiteralArgumentBuilder<CommandSource> getBuilder(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes(c -> showUsage(c.getSource()));
         builder.then(SubCommand.SAVE_ALL_PLAYERS.literal()
-                .executes(c -> saveAllPlayers(c.getSource().getServer(), success -> sendMessage(c.getSource(), (success ? LangKey.MESSAGE_RECOVERY_SAVE_ALL_PLAYERS_SUCCESS : LangKey.MESSAGE_RECOVERY_SAVE_ALL_PLAYERS_FAILED).getTranslation(), true))));
+                .executes(c -> saveAllPlayers(c.getSource().getServer(), success -> sendMessage(c.getSource(), (success ? LangKey.MESSAGE_RECOVERY_SAVE_ALL_PLAYERS_SUCCESS : LangKey.MESSAGE_RECOVERY_SAVE_ALL_PLAYERS_FAILED).getText(), true))));
         builder.then(SubCommand.SAVE_PLAYER.literal()
                 .executes(c -> showUsage(c.getSource()))
                 .then(Commands.argument(PLAYER_PARAM, EntityArgument.player())
                         .executes(c -> {
                             ServerPlayerEntity player = EntityArgument.getPlayer(c, PLAYER_PARAM);
-                            return savePlayer(player, success -> sendMessage(c.getSource(), (success ? LangKey.MESSAGE_RECOVERY_SAVE_PLAYER_SUCCESS : LangKey.MESSAGE_RECOVERY_SAVE_PLAYER_FAILED).getTranslation(player.getName()), false));
+                            return savePlayer(player, success -> sendMessage(c.getSource(), (success ? LangKey.MESSAGE_RECOVERY_SAVE_PLAYER_SUCCESS : LangKey.MESSAGE_RECOVERY_SAVE_PLAYER_FAILED).getText(player.getName()), false));
                         })
                 )
         );
@@ -215,7 +214,7 @@ public class CommandTBRecovery extends TombstoneCommand {
             if (!nbt.keySet().isEmpty()) {
                 player.read(nbt);
                 player.getServerWorld().getSaveHandler().writePlayerData(player);
-                sendMessage(sender, LangKey.MESSAGE_RECOVERY_LOAD_PLAYER_SUCCESS.getTranslation(player.getName()), false);
+                sendMessage(sender, LangKey.MESSAGE_RECOVERY_LOAD_PLAYER_SUCCESS.getText(player.getName()), false);
             }
         } catch (Exception e) {
             throw LangKey.MESSAGE_RECOVERY_LOAD_PLAYER_FAILED.asCommandException(player.getName());
@@ -255,8 +254,8 @@ public class CommandTBRecovery extends TombstoneCommand {
                         player.connection.sendPacket(new SPlayEntityEffectPacket(player.getEntityId(), potioneffect));
                     }
                 }
-                player.sendMessage(LangKey.MESSAGE_RECOVERY_LOAD_PLAYER_TARGET_SUCCESS.getTranslationWithStyle(StyleType.MESSAGE_SPELL));
-                sendMessage(sender, LangKey.MESSAGE_RECOVERY_LOAD_PLAYER_SUCCESS.getTranslation(player.getName()), false);
+                LangKey.MESSAGE_RECOVERY_LOAD_PLAYER_TARGET_SUCCESS.sendMessage(player, StyleType.MESSAGE_SPELL);
+                sendMessage(sender, LangKey.MESSAGE_RECOVERY_LOAD_PLAYER_SUCCESS.getText(player.getName()), false);
             } else {
                 throw LangKey.MESSAGE_RECOVERY_LOAD_PLAYER_FAILED.asCommandException(player.getName());
             }
